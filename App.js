@@ -1,17 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar, ScrollView } from 'react-native';
 import FixedHeader from './elements/FixedHeader'
-import TextHeadings from './elements/TextHeadings'
-import Icons from './elements/Icons'
-import Exam from './elements/Exam'
-import QuestionTypeButtonGroupChooser from './elements/QuestionTypeButtonGroupChooser'
-import QuestionTypePicker from './elements/QuestionTypePicker'
 import TrueFalseQuestionEditor from './elements/TrueFalseQuestionEditor'
 import MultipleChoiceQuestionEditor from './elements/MultipleChoiceQuestionEditor'
 import EssayQuestionEditor from './elements/EssayQuestionEditor'
 import { createStackNavigator } from 'react-navigation'
 import {Button} from 'react-native-elements'
-import ScreenX from './elements/ScreenX'
 import CourseList from './components/CourseList'
 import ModuleList from './components/ModuleList'
 import LessonList from './components/LessonList'
@@ -35,8 +29,6 @@ class Home extends React.Component {
                 onPress={() => this.props.navigation
                   .navigate('CourseList') } />
 
-        <Icons/>
-
       </ScrollView>
     )
   }
@@ -44,6 +36,7 @@ class Home extends React.Component {
 
 const App = createStackNavigator({
   Home,
+  FixedHeader,
   CourseList,
   ModuleList,
   LessonList,
