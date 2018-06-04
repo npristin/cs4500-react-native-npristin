@@ -20,5 +20,18 @@ class LessonList extends Component {
       .then(response => (response.json()))
       .then(lessons => this.setState({lessons}))
   }
+  render() {
+    return(
+      <View style={{padding: 15}}>
+      {this.state.lessons.map(
+        (lesson, index) => (
+          <ListItem
+            onPress={() => this.props.navigation
+              .navigate("WidgetList", {lessonId: lesson.id})}
+            key={index}
+            title={lesson.title}/>))}
+      </View>
+    )
+  }
 }
 export default LessonList
