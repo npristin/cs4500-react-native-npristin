@@ -23,5 +23,14 @@ class WidgetList extends Component {
         {widgets: widgets.filter(w => w.lessonId == lessonId && w.className == null)}))
   }
 
+  createExam() {
+    console.log("creating exam")
+    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/lesson/" + this.state.lessonId + "/exam", {
+            body: JSON.stringify(this.state.exam),
+            headers: { 'Content-Type': 'application/json'},
+            method: 'POST'
+        })
+    }
+
 }
 export default WidgetList
