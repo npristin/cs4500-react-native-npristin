@@ -11,6 +11,7 @@ import ModuleList from './components/ModuleList'
 import LessonList from './components/LessonList'
 import WidgetList from './components/WidgetList'
 import QuestionList from './components/QuestionList'
+import FillInTheBlanksQuestionEditor from './elements/FillInTheBlanksQuestionEditor'
 
 class Home extends React.Component {
   static navigationOptions = {
@@ -44,7 +45,8 @@ const App = createStackNavigator({
   QuestionList,
   TrueFalseQuestionEditor,
   MultipleChoiceQuestionEditor,
-  EssayQuestionEditor
+  EssayQuestionEditor,
+  FillInTheBlanksQuestionEditor
 });
 
 export default App;
