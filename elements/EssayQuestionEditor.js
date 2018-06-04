@@ -44,6 +44,59 @@ class EssayQuestionEditor extends React.Component {
             method: 'POST'
     })
   }
+
+  render() {
+    return(
+      <View>
+        <FormLabel>Title</FormLabel>
+        <FormInput
+            value={this.state.question.title}
+            onChangeText={
+                text => this.updateForm({question: {...this.state.question, title: text }})
+        }/>
+        <FormValidationMessage>
+          Title is required
+        </FormValidationMessage>
+
+        <FormLabel>Description</FormLabel>
+        <FormInput
+            value={this.state.question.description}
+            onChangeText={
+                text => this.updateForm({question: {...this.state.question, description: text}})
+        }/>
+        <FormValidationMessage>
+          Description is required
+        </FormValidationMessage>
+
+        <FormLabel>Points</FormLabel>
+        <FormInput
+            value={this.state.question.points.toString()}
+            onChangeText={
+                text => this.updateForm({question: {...this.state.question, points: text}})
+        }/>
+        <FormValidationMessage>
+          Points are required
+        </FormValidationMessage>
+
+
+        <Button	backgroundColor="green"
+                 color="white"
+                 title="Save"
+                 onPress={() => this.createEssayQuestion()} />/>
+        <Button	backgroundColor="red"
+                 color="white"
+                 title="Cancel"/>
+
+        <Text h3>Preview</Text>
+        <Text h2>{this.state.question.title}</Text>
+        <Text>{this.state.question.description}</Text>
+        <Text>{this.state.question.points} Pts</Text>
+        <TextInput
+            multiline={true}
+            numberOfLines={4}/>
+      </View>
+    )
+  }
 }
 
 export default EssayQuestionEditor
