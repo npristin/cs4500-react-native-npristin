@@ -18,6 +18,29 @@ import LessonList from './components/LessonList'
 import WidgetList from './components/WidgetList'
 import QuestionList from './components/QuestionList'
 
+class Home extends React.Component {
+  static navigationOptions = {
+    title: 'Home'
+  }
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return(
+      <ScrollView>
+        <StatusBar barStyle="light-content"/>
+        <FixedHeader/>
+
+        <Button title="Courses"
+                onPress={() => this.props.navigation
+                  .navigate('CourseList') } />
+
+        <Icons/>
+
+      </ScrollView>
+    )
+  }
+}
 
 const App = createStackNavigator({
   Home,
