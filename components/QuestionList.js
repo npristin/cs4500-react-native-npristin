@@ -11,7 +11,15 @@ class QuestionList extends Component {
       examId: 1
     }
   }
-  
+  componentDidMount() {
+    const {navigation} = this.props;
+    const examId = navigation.getParam("examId")
+    this.setState({examId: examId})
+    console.log(this.state.examId)
+    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/exam/"+examId+"/question")
+      .then(response => (response.json()))
+      .then(questions => this.setState({questions}))
+  }
 }
 export default QuestionList
 
