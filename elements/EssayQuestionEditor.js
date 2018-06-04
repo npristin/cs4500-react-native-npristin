@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, TextInput} from 'react-native'
+import {ScrollView, View, TextInput, StyleSheet} from 'react-native'
 import {Text, Button, CheckBox} from 'react-native-elements'
 import {FormLabel, FormInput, FormValidationMessage}
   from 'react-native-elements'
@@ -48,7 +48,7 @@ class EssayQuestionEditor extends React.Component {
 
   render() {
     return(
-      <View>
+      <ScrollView>
         <FormLabel>Title</FormLabel>
         <FormInput
             value={this.state.question.title}
@@ -92,12 +92,27 @@ class EssayQuestionEditor extends React.Component {
         <Text h2>{this.state.question.title}</Text>
         <Text>{this.state.question.description}</Text>
         <Text>{this.state.question.points} Pts</Text>
-        <TextInput
-            multiline={true}
-            numberOfLines={4}/>
-      </View>
+        <View style={styles.inputView}>
+            <TextInput
+                style={styles.input}
+                multiline={true}
+                numberOfLines={10}/>
+        </View>
+      </ScrollView>
     )
   }
 }
 
 export default EssayQuestionEditor
+
+const styles = StyleSheet.create({
+   input: {
+     height: 40,
+     fontSize: 13,
+     padding: 4,
+   },
+   inputView: {
+     backgroundColor: 'white',
+     height: 100
+   }
+});
