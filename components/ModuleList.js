@@ -11,6 +11,14 @@ class ModuleList extends Component {
       courseId: 1
     }
   }
-  
+  componentDidMount() {
+    const courseId = this.props.navigation.getParam("courseId", 1);
+    this.setState({
+      courseId: courseId
+    })
+    fetch('https://cs4550-java-server-npristin.herokuapp.com/api/course/' + courseId + '/module')
+      .then(response => (response.json()))
+      .then(modules => this.setState({modules: modules}))
+  }
 }
 export default ModuleList
