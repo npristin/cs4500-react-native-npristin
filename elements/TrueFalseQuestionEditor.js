@@ -15,6 +15,9 @@ class TrueFalseQuestionEditor extends React.Component {
       isTrue: true
     }
   }
+  updateForm(newState) {
+    this.setState(newState)
+  }
 }
 
 export default TrueFalseQuestionEditor
