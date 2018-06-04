@@ -15,5 +15,19 @@ class CourseList extends Component {
       courses: []
     }
   }
+  render() {
+    return(
+      <View style={{padding: 15}}>
+        {this.state.courses.map((course, index) => (
+          <ListItem
+            onPress={() => this.props.
+              navigation.navigate("ModuleList",
+              {courseId: course.id})}
+            title={course.title}
+            key={index}/>
+        ))}
+      </View>
+    )
+  }
 }
 export default CourseList
