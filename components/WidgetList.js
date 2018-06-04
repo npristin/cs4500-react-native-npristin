@@ -50,5 +50,39 @@ class WidgetList extends Component {
     })
   }
 
+  render() {
+    return(
+      <View style={{padding: 15}}>
+      <FormLabel>Title</FormLabel>
+      <FormInput onChangeText={
+        text => this.updateTitle(text)
+      }/>
+      <FormValidationMessage>
+        Title is required
+      </FormValidationMessage>
+
+      <FormLabel>Description</FormLabel>
+      <FormInput onChangeText={
+        text => this.updateDescription(text)
+      }/>
+      <FormValidationMessage>
+        Description is required
+      </FormValidationMessage>
+
+      <Button title="Add Assignment"/>
+      <Button title="Add Exam"
+        onPress={() => this.createExam()} />
+      <Text h3>Exams</Text>
+      {this.state.widgets.map(
+        (widget, index) => (
+          <ListItem
+            onPress={() => this.props.navigation
+              .navigate("QuestionList", {examId: widget.id})}
+            key={index}
+            subtitle={widget.description}
+            title={widget.title}/>))}
+      </View>
+    )
+  }
 }
 export default WidgetList
