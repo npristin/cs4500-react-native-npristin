@@ -15,6 +15,9 @@ class MultipleChoiceQuestionEditor extends React.Component {
       options: ''
     }
   }
+  updateForm(newState) {
+    this.setState(newState)
+  }
 }
 
 export default MultipleChoiceQuestionEditor
