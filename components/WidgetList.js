@@ -41,5 +41,14 @@ class WidgetList extends Component {
     })
   }
 
+  updateDescription(text) {
+    this.setState({
+        exam: {
+            ...this.state.exam,
+            description: text
+        }
+    })
+  }
+
 }
 export default WidgetList
