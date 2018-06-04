@@ -20,6 +20,39 @@ class QuestionList extends Component {
       .then(response => (response.json()))
       .then(questions => this.setState({questions}))
   }
+  render() {
+    return(
+      <View style={{padding: 15}}>
+      <Text h4>Add Exam Question</Text>
+      {questions.map( (question, index) => (
+        <ListItem
+          onPress={() => this.props.navigation.navigate(question.nav, {examId: this.state.examId})}
+          key={index}
+          leftIcon={{name: question.icon}}
+          subtitle={question.subtitle}
+          title={question.title}/>
+      ))}
+      <Text h4>Questions</Text>
+      {this.state.questions.map(
+        (question, index) => (
+          <ListItem
+            onPress={() => {
+              if(question.type === "truefalse")
+                this.props.navigation
+                  .navigate("TrueFalseQuestionEditor", {questionId: question.id})
+              if(question.type === "choice")
+                this.props.navigation
+                  .navigate("MultipleChoiceQuestionEditor", {questionId: question.id})
+              if(question.type === "essay")
+                this.props.navigation
+                  .navigate("EssayQuestionEditor", {questionId: question.id, examId: this.state.examId})
+            }}
+            key={index}
+            subtitle={question.description}
+            title={question.title}/>))}
+      </View>
+    )
+  }
 }
 export default QuestionList
 
