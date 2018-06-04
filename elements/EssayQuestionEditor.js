@@ -35,6 +35,15 @@ class EssayQuestionEditor extends React.Component {
   updateForm(newState) {
     this.setState(newState)
   }
+  createEssayQuestion() {
+    console.log("creating essay question")
+    console.log(this.state.question)
+    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/exam/" + this.state.examId + "/essay", {
+            body: JSON.stringify(this.state.question),
+            headers: { 'Content-Type': 'application/json'},
+            method: 'POST'
+    })
+  }
 }
 
 export default EssayQuestionEditor
