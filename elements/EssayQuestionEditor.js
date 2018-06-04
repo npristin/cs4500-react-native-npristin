@@ -32,6 +32,9 @@ class EssayQuestionEditor extends React.Component {
     }
   }
 
+  updateForm(newState) {
+    this.setState(newState)
+  }
 }
 
 export default EssayQuestionEditor
