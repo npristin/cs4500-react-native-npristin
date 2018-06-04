@@ -20,5 +20,19 @@ class ModuleList extends Component {
       .then(response => (response.json()))
       .then(modules => this.setState({modules: modules}))
   }
+  render() {
+    return(
+      <View style={{padding: 15}}>
+        {this.state.modules.map((module, index) => (
+          <ListItem
+            onPress={() => this.props.navigation
+              .navigate("LessonList", {courseId:
+                this.state.courseId, moduleId: module.id})}
+            key={index}
+            title={module.title}/>
+        ))}
+      </View>
+    )
+  }
 }
 export default ModuleList
