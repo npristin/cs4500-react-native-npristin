@@ -17,6 +17,21 @@ class EssayQuestionEditor extends React.Component {
         examId: 1
     }
   }
+  componentDidMount() {
+    const {navigation} = this.props;
+    const examId = navigation.getParam("examId")
+    const questionId = navigation.getParam("questionId")
+    this.setState({examId: examId})
+    console.log(this.state.examId)
+    console.log(questionId)
+
+    if (questionId != null) {
+        fetch("https://cs4550-java-server-npristin.herokuapp.com/api/essay/22")
+        .then(response => (response.json()))
+        .then(question => this.setState({question: question}))
+    }
+  }
+
 }
 
 export default EssayQuestionEditor
