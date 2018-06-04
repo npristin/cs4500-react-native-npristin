@@ -26,7 +26,7 @@ class EssayQuestionEditor extends React.Component {
     console.log(questionId)
 
     if (questionId != null) {
-        fetch("https://cs4550-java-server-npristin.herokuapp.com/api/essay/22")
+        fetch("https://cs4550-java-server-npristin.herokuapp.com/api/essay/" + questionId)
         .then(response => (response.json()))
         .then(question => this.setState({question: question}))
     }
@@ -35,6 +35,7 @@ class EssayQuestionEditor extends React.Component {
   updateForm(newState) {
     this.setState(newState)
   }
+
   createEssayQuestion() {
     console.log("creating essay question")
     console.log(this.state.question)
