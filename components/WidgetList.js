@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ScrollView, Alert} from 'react-native'
+import {ScrollView, Alert, Modal, View} from 'react-native'
 import {Text, ListItem, Button, FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
 
 class WidgetList extends Component {
@@ -16,12 +16,12 @@ class WidgetList extends Component {
         description: '',
         className: "Exam"
       },
-      assignment: {
-        title: '',
-        description: '',
-        className: "Assignment"
-      }
+      modalVisible: false,
     }
+  }
+
+  setModalVisible(visible) {
+      this.setState({modalVisible: visible});
   }
 
   componentDidMount() {
@@ -36,6 +36,7 @@ class WidgetList extends Component {
 
   createExam() {
     console.log("creating exam")
+    this.setModalVisible(!this.state.modalVisible)
     fetch("https://cs4550-java-server-npristin.herokuapp.com/api/lesson/" + this.state.lessonId + "/exam", {
             body: JSON.stringify(this.state.exam),
             headers: { 'Content-Type': 'application/json'},
@@ -43,23 +44,10 @@ class WidgetList extends Component {
         })
   }
 
-  createAssignment() {
-    console.log("creating assignment")
-    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/lesson/" + this.state.lessonId + "/assignment", {
-           body: JSON.stringify(this.state.assignment),
-           headers: { 'Content-Type': 'application/json'},
-           method: 'POST'
-       })
-  }
-
   updateTitle(text) {
     this.setState({
         exam: {
             ...this.state.exam,
-            title: text
-        },
-        assignment: {
-            ...this.state.assignment,
             title: text
         }
     })
@@ -70,10 +58,6 @@ class WidgetList extends Component {
         exam: {
             ...this.state.exam,
             description: text
-        },
-        assignment: {
-            ...this.state.assignment,
-            description: text
         }
     })
   }
@@ -81,38 +65,70 @@ class WidgetList extends Component {
   render() {
     return(
       <ScrollView style={{padding: 15}}>
-      <FormLabel>Title</FormLabel>
-      <FormInput onChangeText={
-        text => this.updateTitle(text)
-      }/>
-      <FormValidationMessage>
-        Title is required
-      </FormValidationMessage>
 
-      <FormLabel>Description</FormLabel>
-      <FormInput onChangeText={
-        text => this.updateDescription(text)
-      }/>
-      <FormValidationMessage>
-        Description is required
-      </FormValidationMessage>
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={this.state.modalVisible}
+        onRequestClose={() => {
+          alert('Modal has been closed.');
+        }}>
+        <View style={{marginTop: 22}}>
+          <View>
+              <Text h2>Add Exam</Text>
+              <FormLabel>Title</FormLabel>
+              <FormInput onChangeText={
+                text => this.updateTitle(text)
+              }/>
+              <FormValidationMessage>
+                Title is required
+              </FormValidationMessage>
+
+              <FormLabel>Description</FormLabel>
+              <FormInput onChangeText={
+                text => this.updateDescription(text)
+              }/>
+              <FormValidationMessage>
+                Description is required
+              </FormValidationMessage>
+
+              <Button title="Save Exam"
+                    onPress={() => this.createExam()} />
+              <Button title="Cancel"
+                    onPress={() => this.setModalVisible(!this.state.modalVisible)} />
+          </View>
+        </View>
+      </Modal>
+
+      <Button title="Add Exam"
+                      onPress={() => this.setModalVisible(!this.state.modalVisible)} />
 
       <Button title="Add Assignment"
-        onPress={() => this.createAssignment()} />
-      <Button title="Add Exam"
-        onPress={() => this.createExam()} />
+        onPress={() => this.props.navigation
+                            .navigate("AssignmentEditor", {lessonId: this.state.lessonId})} />
+      <Text h3>Assignments</Text>
+      {this.state.widgets.filter(widget => widget.className === "Assignment").map
+        ((widget, index) => (
+           <ListItem
+             onPress={() =>
+                this.props.navigation
+                    .navigate("AssignmentEditor", {lessonId: this.state.lessonId, assignmentId: widget.id})}
+             key={index}
+             subtitle={widget.description}
+             title={widget.title}/>))
+      }
       <Text h3>Exams</Text>
-      {this.state.widgets.map(
-        (widget, index) => (
-          <ListItem
-            onPress={() => {
-                if(widget.className === "Exam")
-                    this.props.navigation
-                        .navigate("QuestionList", {examId: widget.id})}
-            }
-            key={index}
-            subtitle={widget.description}
-            title={widget.title}/>))}
+      {this.state.widgets.filter(widget => widget.className === "Exam").map
+          ((widget, index) => (
+             <ListItem
+               onPress={() =>
+                this.props.navigation
+                    .navigate("QuestionList", {examId: widget.id})}
+               key={index}
+               subtitle={widget.description}
+               title={widget.title}/>))
+        }
+
       </ScrollView>
     )
   }
