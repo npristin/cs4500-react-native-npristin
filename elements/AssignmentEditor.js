@@ -46,6 +46,60 @@ class AssignmentEditor extends React.Component {
       })
   }
 
+  render() {
+    return(
+        <ScrollView>
+        <FormLabel>Title</FormLabel>
+        <FormInput
+            value={this.state.assignment.title}
+            onChangeText={
+                text => this.updateForm({assignment: {...this.state.assignment, title: text }})
+        }/>
+        <FormValidationMessage>
+          Title is required
+        </FormValidationMessage>
+
+        <FormLabel>Description</FormLabel>
+        <FormInput
+            value={this.state.assignment.description}
+            onChangeText={
+                text => this.updateForm({assignment: {...this.state.assignment, description: text}})
+        }/>
+        <FormValidationMessage>
+          Description is required
+        </FormValidationMessage>
+
+        <FormLabel>Points</FormLabel>
+        <FormInput
+            value={this.state.assignment.points.toString()}
+            onChangeText={
+                text => this.updateForm({assignment: {...this.state.assignment, points: text}})
+        }/>
+        <FormValidationMessage>
+          Points are required
+        </FormValidationMessage>
+
+
+        <Button	backgroundColor="green"
+                 color="white"
+                 title="Save"
+                 onPress={() => this.createAssignment()} />
+        <Button	backgroundColor="red"
+                 color="white"
+                 title="Cancel"/>
+
+        <Text h3>Preview</Text>
+        <Text h2>{this.state.assignment.title}</Text>
+        <Text>{this.state.assignment.description}</Text>
+        <Text>{this.state.assignment.points} Pts</Text>
+        <View>
+            <TextInput
+                multiline={true}
+                numberOfLines={10}/>
+        </View>
+      </ScrollView>
+    )
+  }
 }
 
 export default AssignmentEditor
