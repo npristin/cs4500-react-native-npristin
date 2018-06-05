@@ -83,7 +83,7 @@ class EssayQuestionEditor extends React.Component {
         <Button	backgroundColor="green"
                  color="white"
                  title="Save"
-                 onPress={() => this.createEssayQuestion()} />/>
+                 onPress={() => this.createEssayQuestion()} />
         <Button	backgroundColor="red"
                  color="white"
                  title="Cancel"/>
