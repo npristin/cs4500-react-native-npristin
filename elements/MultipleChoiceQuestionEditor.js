@@ -69,9 +69,14 @@ class MultipleChoiceQuestionEditor extends React.Component {
           Description is required
         </FormValidationMessage>
 
+        <FormLabel>Add Option</FormLabel>
         <FormInput onChangeText={
           text => this.updateForm({option: text})
         }/>
+        <FormValidationMessage>
+          Add at least two options
+        </FormValidationMessage>
+
         <Button backgroundColor="blue"
                  color="white"
                  title="Add Choice"
@@ -132,5 +137,14 @@ class MultipleChoiceQuestionEditor extends React.Component {
 export default MultipleChoiceQuestionEditor
 
 const styles = StyleSheet.create({
-  correctOption: { backgroundColor: 'blue'}
+  correctOption: { backgroundColor: 'blue'},
+  input: {
+       height: 40,
+       fontSize: 13,
+       padding: 4,
+     },
+     inputView: {
+       backgroundColor: 'white',
+       height: 100
+     }
 })
