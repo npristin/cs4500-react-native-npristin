@@ -20,6 +20,18 @@ class AssignmentEditor extends React.Component {
     }
   }
 
+  componentDidMount() {
+      const {navigation} = this.props;
+      const assignmentId = navigation.getParam("assignmentId")
+      const lessonId = navigation.getParam("lessonId")
+      this.setState({assignmentId: assignmentId})
+      this.setState({lessonId: lessonId})
+      console.log(this.state.assignmentId)
+      fetch("https://cs4550-java-server-npristin.herokuapp.com/api/assignment/"+assignmentId)
+        .then(response => (response.json()))
+        .then(assignment => this.setState({assignment}))
+  }
+
   
 }
 
