@@ -41,7 +41,12 @@ class WidgetList extends Component {
             body: JSON.stringify(this.state.exam),
             headers: { 'Content-Type': 'application/json'},
             method: 'POST'
-        })
+        }
+    ).then(() => fetch("https://cs4550-java-server-npristin.herokuapp.com/api/widget")
+                    .then(response => (response.json()))
+                    .then(widgets => this.setState(
+                        {widgets: widgets.filter(w => w.lessonId == this.state.lessonId &&
+                        (w.className === "Exam" || w.className === "Assignment"))})))
   }
 
   updateTitle(text) {
