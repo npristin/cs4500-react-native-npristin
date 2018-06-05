@@ -91,6 +91,7 @@ class MultipleChoiceQuestionEditor extends React.Component {
           Add at least two options
         </FormValidationMessage>
 
+        <View style={{paddingTop:10}}>
         <Button backgroundColor="blue"
                  color="white"
                  title="Add Choice"
@@ -103,6 +104,7 @@ class MultipleChoiceQuestionEditor extends React.Component {
                             this.updateForm(
                                 {question: {...this.state.question, options: this.state.question.options + "," + this.state.option}})
                     }}/>
+        </View>
         <FormLabel>Choices</FormLabel>
         {this.state.question.options != '' ?
             this.state.question.options.split(",").map(
@@ -126,14 +128,18 @@ class MultipleChoiceQuestionEditor extends React.Component {
           text => this.updateForm({question: {options: text}})
         }/>
 
+        <View style={{paddingTop:10}}>
         <Button	backgroundColor="green"
                  color="white"
                  title="Save"
                  onPress={() => this.createMultipleChoiceQuestion()}/>
+        </View>
+        <View style={{paddingTop:10}}>
         <Button	backgroundColor="red"
                  color="white"
                  title="Cancel"
                  onPress={() => this.props.navigation.goBack()}/>
+        </View>
 
         <Text h3>Preview</Text>
         <Text h2>{this.state.question.title}</Text>

@@ -79,15 +79,18 @@ class EssayQuestionEditor extends React.Component {
           Points are required
         </FormValidationMessage>
 
-
+        <View style={{paddingTop:10}}>
         <Button	backgroundColor="green"
                  color="white"
                  title="Save"
                  onPress={() => this.createEssayQuestion()} />
+        </View>
+        <View style={{paddingTop:10}}>
         <Button	backgroundColor="red"
                  color="white"
                  title="Cancel"
                  onPress={() => this.props.navigation.goBack()}/>
+        </View>
 
         <Text h3>Preview</Text>
         <Text h2>{this.state.question.title}</Text>

@@ -84,14 +84,18 @@ class TrueFalseQuestionEditor extends React.Component {
         <CheckBox onPress={() => this.updateForm({question: {isTrue: !this.state.isTrue}})}
                   checked={this.state.question.isTrue} title='The answer is true'/>
 
+        <View style={{paddingTop:10}}>
         <Button	backgroundColor="green"
                  color="white"
                  title="Save"
                  onPress={() => this.createTrueFalseQuestion()}/>
+        </View>
+        <View style={{paddingTop:10}}>
         <Button	backgroundColor="red"
                  color="white"
                  title="Cancel"
                  onPress={() => this.props.navigation.goBack()}/>
+        </View>
 
         <Text h3>Preview</Text>
         <Text h2>{this.state.question.title}</Text>
