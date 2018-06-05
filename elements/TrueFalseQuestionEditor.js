@@ -90,7 +90,8 @@ class TrueFalseQuestionEditor extends React.Component {
                  onPress={() => this.createTrueFalseQuestion()}/>
         <Button	backgroundColor="red"
                  color="white"
-                 title="Cancel"/>
+                 title="Cancel"
+                 onPress={() => this.props.navigation.goBack()}/>
 
         <Text h3>Preview</Text>
         <Text h2>{this.state.question.title}</Text>
