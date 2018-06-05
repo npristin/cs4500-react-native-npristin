@@ -98,7 +98,6 @@ class EssayQuestionEditor extends React.Component {
         <Text>{this.state.question.points} Pts</Text>
         <View style={styles.inputView}>
             <TextInput
-                style={styles.input}
                 multiline={true}
                 numberOfLines={10}/>
         </View>
@@ -110,11 +109,6 @@ class EssayQuestionEditor extends React.Component {
 export default EssayQuestionEditor
 
 const styles = StyleSheet.create({
-   input: {
-     height: 40,
-     fontSize: 13,
-     padding: 4,
-   },
    inputView: {
      backgroundColor: 'white',
      height: 100

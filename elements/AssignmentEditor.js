@@ -112,21 +112,25 @@ class AssignmentEditor extends React.Component {
                 multiline={true}
                 numberOfLines={10}/>
         </View>
+        <View style={{paddingTop:15}}>
         <Text h5>Upload a file</Text>
-        <View style={styles.inputView}>
+        <View style={{backgroundColor: 'white'}}>
             <TextInput
                 style={styles.input}
                 multiline={true}
                 numberOfLines={5}/>
         </View>
+        </View>
+        <View style={{paddingTop:15}}>
         <Text h5>Submit a link</Text>
-            <View style={styles.inputView}>
+            <View style={{backgroundColor: 'white'}}>
                 <TextInput
                     style={styles.input}
                     multiline={true}
                     numberOfLines={5}/>
         </View>
-        <View style={{paddingTop:10}}>
+        </View>
+        <View style={{paddingTop:15}}>
         <Button backgroundColor="red"
                    color="white"
                    title="Delete Assignment"
@@ -140,11 +144,6 @@ class AssignmentEditor extends React.Component {
 export default AssignmentEditor
 
 const styles = StyleSheet.create({
-   input: {
-     height: 40,
-     fontSize: 13,
-     padding: 4,
-   },
    inputView: {
      backgroundColor: 'white',
      height: 100
