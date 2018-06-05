@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Alert} from 'react-native'
+import {ScrollView, Alert} from 'react-native'
 import {Text, ListItem, Button, FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
 
 class WidgetList extends Component {
@@ -52,7 +52,7 @@ class WidgetList extends Component {
 
   render() {
     return(
-      <View style={{padding: 15}}>
+      <ScrollView style={{padding: 15}}>
       <FormLabel>Title</FormLabel>
       <FormInput onChangeText={
         text => this.updateTitle(text)
@@ -81,7 +81,7 @@ class WidgetList extends Component {
             key={index}
             subtitle={widget.description}
             title={widget.title}/>))}
-      </View>
+      </ScrollView>
     )
   }
 }
