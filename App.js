@@ -4,6 +4,7 @@ import FixedHeader from './elements/FixedHeader'
 import TrueFalseQuestionEditor from './elements/TrueFalseQuestionEditor'
 import MultipleChoiceQuestionEditor from './elements/MultipleChoiceQuestionEditor'
 import EssayQuestionEditor from './elements/EssayQuestionEditor'
+import AssignmentEditor from './elements/AssignmentEditor'
 import { createStackNavigator } from 'react-navigation'
 import {Button} from 'react-native-elements'
 import CourseList from './components/CourseList'
@@ -46,7 +47,8 @@ const App = createStackNavigator({
   TrueFalseQuestionEditor,
   MultipleChoiceQuestionEditor,
   EssayQuestionEditor,
-  FillInTheBlanksQuestionEditor
+  FillInTheBlanksQuestionEditor,
+  AssignmentEditor
 });
 
 export default App;
