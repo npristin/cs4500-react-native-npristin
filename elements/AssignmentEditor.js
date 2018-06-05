@@ -93,13 +93,13 @@ class AssignmentEditor extends React.Component {
                  title="Cancel"
                  onPress={() => this.props.navigation.goBack()}/>
         </View>
-
         <Text h3>Preview</Text>
-        <Text h2>{this.state.assignment.title}</Text>
+        <Text h4>{this.state.assignment.title}</Text>
         <Text>{this.state.assignment.description}</Text>
         <Text>{this.state.assignment.points} Pts</Text>
-        <View>
+        <View style={styles.inputView}>
             <TextInput
+                style={styles.input}
                 multiline={true}
                 numberOfLines={10}/>
         </View>
@@ -109,3 +109,15 @@ class AssignmentEditor extends React.Component {
 }
 
 export default AssignmentEditor
+
+const styles = StyleSheet.create({
+   input: {
+     height: 40,
+     fontSize: 13,
+     padding: 4,
+   },
+   inputView: {
+     backgroundColor: 'white',
+     height: 100
+   }
+});
