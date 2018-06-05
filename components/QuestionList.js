@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {View, Alert} from 'react-native'
-import {Text, ListItem} from 'react-native-elements'
+import {Text, ListItem, Button} from 'react-native-elements'
 
 class QuestionList extends Component {
   static navigationOptions = {title: 'Questions'}
@@ -16,10 +16,18 @@ class QuestionList extends Component {
     const examId = navigation.getParam("examId")
     this.setState({examId: examId})
     console.log(this.state.examId)
-    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/exam/"+examId+"/question")
+    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/exam/" + examId + "/question")
       .then(response => (response.json()))
       .then(questions => this.setState({questions}))
   }
+
+  deleteExam() {
+    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/exam/" + this.state.examId, {
+        method: 'DELETE'
+    }).then(response => (console.log(response)))
+    this.props.navigation.goBack()
+  }
+
   render() {
     return(
       <View style={{padding: 15}}>
@@ -50,6 +58,12 @@ class QuestionList extends Component {
             key={index}
             subtitle={question.description}
             title={question.title}/>))}
+      <View style={{paddingTop:10}}>
+      <Button backgroundColor="red"
+               color="white"
+               title="Delete Exam"
+               onPress={() => this.deleteExam()}/>
+      </View>
       </View>
     )
   }
