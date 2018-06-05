@@ -48,6 +48,13 @@ class AssignmentEditor extends React.Component {
       })
   }
 
+  deleteAssignment() {
+      fetch("https://cs4550-java-server-npristin.herokuapp.com/api/assignment/" + this.state.assignmentId, {
+          method: 'DELETE'
+      }).then(response => (console.log(response)))
+      this.props.navigation.goBack()
+  }
+
   render() {
     return(
         <ScrollView style={{marginBottom:30}}>
@@ -118,7 +125,13 @@ class AssignmentEditor extends React.Component {
                     style={styles.input}
                     multiline={true}
                     numberOfLines={5}/>
-            </View>
+        </View>
+        <View style={{paddingTop:10}}>
+        <Button backgroundColor="red"
+                   color="white"
+                   title="Delete Assignment"
+                   onPress={() => this.deleteAssignment()}/>
+        </View>
       </ScrollView>
     )
   }
