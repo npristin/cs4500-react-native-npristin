@@ -32,7 +32,10 @@ class AssignmentEditor extends React.Component {
         .then(assignment => this.setState({assignment}))
   }
 
-  
+  updateForm(newState) {
+    this.setState(newState)
+  }
+
 }
 
 export default AssignmentEditor
