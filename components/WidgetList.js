@@ -93,9 +93,13 @@ class WidgetList extends Component {
               </FormValidationMessage>
 
               <Button title="Save Exam"
+                    backgroundColor="green"
+                    color="white"
                     onPress={() => this.createExam()} />
               <Button title="Cancel"
-                    onPress={() => this.setModalVisible(!this.state.modalVisible)} />
+                      backgroundColor="red"
+                      color="white"
+                      onPress={() => this.setModalVisible(!this.state.modalVisible)} />
           </View>
         </View>
       </Modal>
