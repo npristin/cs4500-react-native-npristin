@@ -50,7 +50,7 @@ class AssignmentEditor extends React.Component {
 
   render() {
     return(
-        <ScrollView>
+        <ScrollView style={{marginBottom:30}}>
         <FormLabel>Title</FormLabel>
         <FormInput
             value={this.state.assignment.title}
@@ -97,12 +97,28 @@ class AssignmentEditor extends React.Component {
         <Text h4>{this.state.assignment.title}</Text>
         <Text>{this.state.assignment.description}</Text>
         <Text>{this.state.assignment.points} Pts</Text>
+
+        <Text h5>Essay Answer</Text>
         <View style={styles.inputView}>
             <TextInput
                 style={styles.input}
                 multiline={true}
                 numberOfLines={10}/>
         </View>
+        <Text h5>Upload a file</Text>
+        <View style={styles.inputView}>
+            <TextInput
+                style={styles.input}
+                multiline={true}
+                numberOfLines={5}/>
+        </View>
+        <Text h5>Submit a link</Text>
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.input}
+                    multiline={true}
+                    numberOfLines={5}/>
+            </View>
       </ScrollView>
     )
   }

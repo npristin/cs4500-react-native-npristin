@@ -69,7 +69,7 @@ class WidgetList extends Component {
 
   render() {
     return(
-      <ScrollView style={{padding: 15}}>
+      <ScrollView style={{padding: 15, marginBottom: 30}}>
 
       <Modal
         animationType="slide"
