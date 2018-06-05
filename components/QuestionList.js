@@ -42,7 +42,7 @@ class QuestionList extends Component {
                   .navigate("TrueFalseQuestionEditor", {questionId: question.id})
               if(question.type === "choice")
                 this.props.navigation
-                  .navigate("MultipleChoiceQuestionEditor", {questionId: question.id})
+                  .navigate("MultipleChoiceQuestionEditor", {questionId: question.id, examId: this.state.examId})
               if(question.type === "essay")
                 this.props.navigation
                   .navigate("EssayQuestionEditor", {questionId: question.id, examId: this.state.examId})
