@@ -107,9 +107,12 @@ class WidgetList extends Component {
       <Button title="Add Exam"
                       onPress={() => this.setModalVisible(!this.state.modalVisible)} />
 
+      <View style={{paddingTop:10}}>
       <Button title="Add Assignment"
         onPress={() => this.props.navigation
                             .navigate("AssignmentEditor", {lessonId: this.state.lessonId})} />
+      </View>
+      <View style={{paddingTop:10}}>
       <Text h3>Assignments</Text>
       {this.state.widgets.filter(widget => widget.className === "Assignment").map
         ((widget, index) => (
@@ -121,6 +124,8 @@ class WidgetList extends Component {
              subtitle={widget.description}
              title={widget.title}/>))
       }
+      </View>
+      <View style={{paddingTop:10}}>
       <Text h3>Exams</Text>
       {this.state.widgets.filter(widget => widget.className === "Exam").map
           ((widget, index) => (
@@ -132,7 +137,7 @@ class WidgetList extends Component {
                subtitle={widget.description}
                title={widget.title}/>))
         }
-
+      </View>
       </ScrollView>
     )
   }
