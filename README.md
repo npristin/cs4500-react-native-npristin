@@ -10,7 +10,7 @@ Java Middle Tier (Assignment 1): [Java Middle Tier](https://github.com/npristin/
 
 React Client (Assignment 2+3): [React Client](https://github.com/npristin/cs4550-java-react-npristin)
 
-
+## This project is bootstrapped with Create React Native App
 
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
