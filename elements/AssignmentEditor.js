@@ -36,6 +36,16 @@ class AssignmentEditor extends React.Component {
     this.setState(newState)
   }
 
+  createAssignment() {
+      console.log("creating/updating assignment")
+      console.log(this.state.assignment)
+      fetch("https://cs4550-java-server-npristin.herokuapp.com/api/lesson/" + this.state.lessonId + "/assignment", {
+              body: JSON.stringify(this.state.assignment),
+              headers: { 'Content-Type': 'application/json'},
+              method: 'POST'
+      })
+  }
+
 }
 
 export default AssignmentEditor
