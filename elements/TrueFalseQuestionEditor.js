@@ -1,5 +1,5 @@
 import React from 'react'
-import {View} from 'react-native'
+import {View, ScrollView} from 'react-native'
 import {Text, Button, CheckBox} from 'react-native-elements'
 import {FormLabel, FormInput, FormValidationMessage}
   from 'react-native-elements'
@@ -50,7 +50,7 @@ class TrueFalseQuestionEditor extends React.Component {
 
   render() {
     return(
-      <View>
+      <ScrollView>
         <FormLabel>Title</FormLabel>
         <FormInput
             value={this.state.question.title}
@@ -81,7 +81,7 @@ class TrueFalseQuestionEditor extends React.Component {
           Points are required
         </FormValidationMessage>
 
-        <CheckBox onPress={() => this.updateForm({question: {isTrue: !this.state.isTrue}})}
+        <CheckBox onPress={() => this.updateForm({question: {...this.state.question, isTrue: !this.state.question.isTrue}})}
                   checked={this.state.question.isTrue} title='The answer is true'/>
 
         <View style={{paddingTop:10}}>
@@ -100,8 +100,10 @@ class TrueFalseQuestionEditor extends React.Component {
         <Text h3>Preview</Text>
         <Text h2>{this.state.question.title}</Text>
         <Text>{this.state.question.description}</Text>
+        <Text>{this.state.question.points}</Text>
+        <CheckBox title='True'/>
 
-      </View>
+      </ScrollView>
     )
   }
 }
