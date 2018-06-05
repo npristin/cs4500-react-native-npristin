@@ -12,8 +12,8 @@ class MultipleChoiceQuestionEditor extends React.Component {
       question: {
           title: '',
           description: '',
-          options: '',
           points: 0,
+          options: '',
           correctOption: 0
       },
       examId: 1,
@@ -82,8 +82,12 @@ class MultipleChoiceQuestionEditor extends React.Component {
                  title="Add Choice"
                  onPress={() => {
                     if(this.state.option != '')
-                        this.updateForm(
-                            {question: {...this.state.question, options: this.state.question.options + "," + this.state.option}})
+                        if(this.state.question.options == '')
+                            this.updateForm(
+                                {question: {...this.state.question, options: this.state.option}})
+                        else
+                            this.updateForm(
+                                {question: {...this.state.question, options: this.state.question.options + "," + this.state.option}})
                     }}/>
         <FormLabel>Choices</FormLabel>
         {this.state.question.options != '' ?
