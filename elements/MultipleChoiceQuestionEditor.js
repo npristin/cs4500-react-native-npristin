@@ -54,19 +54,33 @@ class MultipleChoiceQuestionEditor extends React.Component {
     return(
       <ScrollView>
         <FormLabel>Title</FormLabel>
-        <FormInput onChangeText={
-          text => this.updateForm({question: {...this.state.question, title: text}})
+        <FormInput
+            value={this.state.question.title}
+            onChangeText={
+                text => this.updateForm({question: {...this.state.question, title: text}})
         }/>
         <FormValidationMessage>
           Title is required
         </FormValidationMessage>
 
         <FormLabel>Description</FormLabel>
-        <FormInput onChangeText={
-          text => this.updateForm({question: {...this.state.question, description: text}})
+        <FormInput
+            value={this.state.question.description}
+            onChangeText={
+                text => this.updateForm({question: {...this.state.question, description: text}})
         }/>
         <FormValidationMessage>
           Description is required
+        </FormValidationMessage>
+
+        <FormLabel>Points</FormLabel>
+        <FormInput
+            value={this.state.question.points.toString()}
+            onChangeText={
+                text => this.updateForm({question: {...this.state.question, points: text}})
+        }/>
+        <FormValidationMessage>
+          Points are required
         </FormValidationMessage>
 
         <FormLabel>Add Option</FormLabel>
@@ -123,6 +137,7 @@ class MultipleChoiceQuestionEditor extends React.Component {
         <Text h3>Preview</Text>
         <Text h2>{this.state.question.title}</Text>
         <Text>{this.state.question.description}</Text>
+        <Text>{this.state.question.points} Pts</Text>
         {this.state.question.options != '' ?
             this.state.question.options.split(",").map(
                 (option, index) => (
