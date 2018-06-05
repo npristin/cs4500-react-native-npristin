@@ -40,7 +40,15 @@ class MultipleChoiceQuestionEditor extends React.Component {
     this.setState(newState)
   }
 
-
+  createMultipleChoiceQuestion() {
+    console.log("creating multiple choice question")
+    console.log(this.state.question)
+    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/exam/" + this.state.examId + "/choice", {
+            body: JSON.stringify(this.state.question),
+            headers: { 'Content-Type': 'application/json'},
+            method: 'POST'
+    }).then(response => console.log(response))
+  }
 
   render() {
     return(
