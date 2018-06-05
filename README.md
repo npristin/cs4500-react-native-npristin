@@ -1,3 +1,18 @@
+# CS 4500 - Web Development
+Assignment 4 Repository - React Native Client
+
+By: Nicole Pristin
+
+## Please access this app by cloning the github repository and running locally in Expo.
+
+## Links to Related Github Repositories
+Java Middle Tier (Assignment 1): [Java Middle Tier](https://github.com/npristin/cs4550-java-server-npristin)
+
+React Client (Assignment 2+3): [React Client](https://github.com/npristin/cs4550-java-react-npristin)
+
+
+
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
