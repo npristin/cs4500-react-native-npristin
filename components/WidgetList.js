@@ -10,7 +10,12 @@ class WidgetList extends Component {
       widgets: [],
       courseId: 1,
       moduleId: 1,
-      lessonId: 1
+      lessonId: 1,
+      exam: {
+        title: '',
+        description: '',
+        className: "Exam"
+      }
     }
   }
   componentDidMount() {
@@ -20,7 +25,7 @@ class WidgetList extends Component {
     fetch("https://cs4550-java-server-npristin.herokuapp.com/api/widget")
       .then(response => (response.json()))
       .then(widgets => this.setState(
-        {widgets: widgets.filter(w => w.lessonId == lessonId && w.className == null)}))
+        {widgets: widgets.filter(w => w.lessonId == lessonId && (w.className === "Exam" || w.className === "Assignment"))}))
   }
 
   createExam() {
@@ -76,8 +81,11 @@ class WidgetList extends Component {
       {this.state.widgets.map(
         (widget, index) => (
           <ListItem
-            onPress={() => this.props.navigation
-              .navigate("QuestionList", {examId: widget.id})}
+            onPress={() => {
+                if(widget.className === "Exam")
+                    this.props.navigation
+                        .navigate("QuestionList", {examId: widget.id})}
+            }
             key={index}
             subtitle={widget.description}
             title={widget.title}/>))}
