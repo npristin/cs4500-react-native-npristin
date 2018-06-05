@@ -15,9 +15,15 @@ class WidgetList extends Component {
         title: '',
         description: '',
         className: "Exam"
+      },
+      assignment: {
+        title: '',
+        description: '',
+        className: "Assignment"
       }
     }
   }
+
   componentDidMount() {
     const {navigation} = this.props;
     const lessonId = navigation.getParam("lessonId")
@@ -35,12 +41,25 @@ class WidgetList extends Component {
             headers: { 'Content-Type': 'application/json'},
             method: 'POST'
         })
-    }
+  }
+
+  createAssignment() {
+    console.log("creating assignment")
+    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/lesson/" + this.state.lessonId + "/assignment", {
+           body: JSON.stringify(this.state.assignment),
+           headers: { 'Content-Type': 'application/json'},
+           method: 'POST'
+       })
+  }
 
   updateTitle(text) {
     this.setState({
         exam: {
             ...this.state.exam,
+            title: text
+        },
+        assignment: {
+            ...this.state.assignment,
             title: text
         }
     })
@@ -50,6 +69,10 @@ class WidgetList extends Component {
     this.setState({
         exam: {
             ...this.state.exam,
+            description: text
+        },
+        assignment: {
+            ...this.state.assignment,
             description: text
         }
     })
@@ -74,7 +97,8 @@ class WidgetList extends Component {
         Description is required
       </FormValidationMessage>
 
-      <Button title="Add Assignment"/>
+      <Button title="Add Assignment"
+        onPress={() => this.createAssignment()} />
       <Button title="Add Exam"
         onPress={() => this.createExam()} />
       <Text h3>Exams</Text>
