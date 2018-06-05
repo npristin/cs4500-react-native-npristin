@@ -27,9 +27,11 @@ class AssignmentEditor extends React.Component {
       this.setState({assignmentId: assignmentId})
       this.setState({lessonId: lessonId})
       console.log(this.state.assignmentId)
-      fetch("https://cs4550-java-server-npristin.herokuapp.com/api/assignment/"+assignmentId)
-        .then(response => (response.json()))
-        .then(assignment => this.setState({assignment}))
+      if (assignmentId != null) {
+        fetch("https://cs4550-java-server-npristin.herokuapp.com/api/assignment/"+assignmentId)
+            .then(response => (response.json()))
+            .then(assignment => this.setState({assignment: assignment}))
+      }
   }
 
   updateForm(newState) {
