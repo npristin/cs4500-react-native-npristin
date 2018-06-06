@@ -3,6 +3,7 @@ import {View, ScrollView, StyleSheet} from 'react-native';
 import {Text, Button, CheckBox, ListItem} from 'react-native-elements';
 import {FormLabel, FormInput, FormValidationMessage} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ChoiceQuestionService from "../services/ChoiceQuestionService"
 
 class MultipleChoiceQuestionEditor extends React.Component {
   static navigationOptions = { title: "Multiple Choice"}
@@ -19,6 +20,7 @@ class MultipleChoiceQuestionEditor extends React.Component {
       examId: 1,
       option: ''
     }
+    this.choiceQuestionService = ChoiceQuestionService.instance();
   }
 
   componentDidMount() {
@@ -31,9 +33,9 @@ class MultipleChoiceQuestionEditor extends React.Component {
     console.log(questionId)
 
     if (questionId != null) {
-        fetch("https://cs4550-java-server-npristin.herokuapp.com/api/choice/" + questionId)
-        .then(response => (response.json()))
-        .then(question => this.setState({question: question}))
+        this.choiceQuestionService
+            .findMCQuestionById(questionId)
+            .then(question => this.setState({question: question}))
     }
   }
 
@@ -44,17 +46,15 @@ class MultipleChoiceQuestionEditor extends React.Component {
   createMultipleChoiceQuestion() {
     console.log("creating multiple choice question")
     console.log(this.state.question)
-    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/exam/" + this.state.examId + "/choice", {
-            body: JSON.stringify(this.state.question),
-            headers: { 'Content-Type': 'application/json'},
-            method: 'POST'
-    }).then(this.props.navigation.goBack())
+    this.choiceQuestionService
+        .createMultipleChoiceQuestion(this.state.examId, this.state.question)
+        .then(this.props.navigation.goBack())
   }
 
   deleteMultipleChoiceQuestion() {
-    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/choice/" + this.state.questionId, {
-            method: 'DELETE'
-        }).then(this.props.navigation.goBack())
+    this.choiceQuestionService
+        .deleteMultipleChoiceQuestion(this.state.questionId)
+        .then(this.props.navigation.goBack())
   }
 
   render() {
