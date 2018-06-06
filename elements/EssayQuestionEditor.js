@@ -3,6 +3,8 @@ import {ScrollView, View, TextInput, StyleSheet} from 'react-native'
 import {Text, Button, CheckBox} from 'react-native-elements'
 import {FormLabel, FormInput, FormValidationMessage}
   from 'react-native-elements'
+import EssayQuestionService from "../services/EssayQuestionService"
+
 
 class EssayQuestionEditor extends React.Component {
   static navigationOptions = { title: "Essay"}
@@ -16,19 +18,22 @@ class EssayQuestionEditor extends React.Component {
         },
         examId: 1
     }
+
+    this.essayQuestionService = EssayQuestionService.instance();
   }
   componentDidMount() {
     const {navigation} = this.props;
     const examId = navigation.getParam("examId")
     const questionId = navigation.getParam("questionId")
     this.setState({examId: examId})
+    this.setState({questionId: questionId})
     console.log(this.state.examId)
     console.log(questionId)
 
     if (questionId != null) {
-        fetch("https://cs4550-java-server-npristin.herokuapp.com/api/essay/" + questionId)
-        .then(response => (response.json()))
-        .then(question => this.setState({question: question}))
+        this.essayQuestionService
+            .findEssayById(questionId)
+            .then(question => this.setState({question: question}))
     }
   }
 
@@ -39,17 +44,15 @@ class EssayQuestionEditor extends React.Component {
   createEssayQuestion() {
     console.log("creating essay question")
     console.log(this.state.question)
-    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/exam/" + this.state.examId + "/essay", {
-            body: JSON.stringify(this.state.question),
-            headers: { 'Content-Type': 'application/json'},
-            method: 'POST'
-    }).then(this.props.navigation.goBack())
+    this.essayQuestionService
+        .createEssayQuestion(this.state.examId, this.state.question)
+        .then(this.props.navigation.goBack())
   }
 
   deleteEssayQuestion() {
-      fetch("https://cs4550-java-server-npristin.herokuapp.com/api/essay/" + this.state.questionId, {
-              method: 'DELETE'
-          }).then(this.props.navigation.goBack())
+      this.essayQuestionService
+        .deleteEssayQuestion(this.state.questionId)
+        .then(this.props.navigation.goBack())
   }
 
   render() {
@@ -101,7 +104,7 @@ class EssayQuestionEditor extends React.Component {
                  onPress={() => this.createEssayQuestion()}/>
         </View>
         <View style={{paddingTop:10, paddingBottom: 20}}>
-        {this.state.assignmentId == null ?
+        {this.state.questionId == null ?
             <Button	backgroundColor="red"
                  color="white"
                  title="Cancel"
