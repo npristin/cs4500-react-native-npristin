@@ -14,7 +14,7 @@ class FillInTheBlanksQuestionEditor extends React.Component {
           title: '',
           description: '',
           points: 0,
-          variableText: ''
+          variables: ''
         },
         examId: 1
     }
@@ -94,9 +94,9 @@ class FillInTheBlanksQuestionEditor extends React.Component {
             returnKeyType='none'
             multiline={true}
             style={styles.input}
-            value={this.state.question.variableText}
+            value={this.state.question.variables}
             onChangeText={
-                text => this.updateForm({question: {...this.state.question, variableText: text}})
+                text => this.updateForm({question: {...this.state.question, variables: text}})
         }/>
         </View>
         <FormValidationMessage>
@@ -111,7 +111,7 @@ class FillInTheBlanksQuestionEditor extends React.Component {
         <TextInput
             multiline={true}
             numberOfLines={20}
-            value={this.state.question.variableText.replace(/(\[).+?(\])/g,
+            value={this.state.question.variables.replace(/(\[).+?(\])/g,
                         React.createElement("TextInput"))}/>
         </View>
         <View>
