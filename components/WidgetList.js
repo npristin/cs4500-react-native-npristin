@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {ScrollView, Alert, Modal, View} from 'react-native'
 import {Text, ListItem, Button, FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
+import WidgetService from "../services/WidgetService";
 
 class WidgetList extends Component {
   static navigationOptions = {title: 'Widgets'}
@@ -18,20 +19,26 @@ class WidgetList extends Component {
       },
       modalVisible: false,
     }
+
+    this.widgetService = WidgetService.instance();
   }
 
   setModalVisible(visible) {
       this.setState({modalVisible: visible});
   }
 
+  findAllWidgets(lessonId) {
+      this.widgetService
+        .findAllWidgets()
+        .then(widgets => this.setState(
+           {widgets: widgets.filter(w => w.lessonId == lessonId && (w.className === "Exam" || w.className === "Assignment"))}))
+  }
+
   componentDidMount() {
     const {navigation} = this.props;
     const lessonId = navigation.getParam("lessonId")
     this.setState({lessonId: lessonId})
-    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/widget")
-      .then(response => (response.json()))
-      .then(widgets => this.setState(
-        {widgets: widgets.filter(w => w.lessonId == lessonId && (w.className === "Exam" || w.className === "Assignment"))}))
+    this.findAllWidgets(lessonId)
   }
 
   createExam() {
@@ -42,11 +49,7 @@ class WidgetList extends Component {
             headers: { 'Content-Type': 'application/json'},
             method: 'POST'
         }
-    ).then(() => fetch("https://cs4550-java-server-npristin.herokuapp.com/api/widget")
-                    .then(response => (response.json()))
-                    .then(widgets => this.setState(
-                        {widgets: widgets.filter(w => w.lessonId == this.state.lessonId &&
-                        (w.className === "Exam" || w.className === "Assignment"))})))
+    ).then(() => this.findAllWidgets(this.state.lessonId))
   }
 
   updateTitle(text) {
