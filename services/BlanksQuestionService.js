@@ -17,14 +17,14 @@ export default class BlanksQuestionService {
         return this[_singleton];
     }
 
-    findEssayById(questionId) {
+    findBlanksQuestionById(questionId) {
         return fetch(BLANKS_API_URL + '/' + questionId)
             .then(function(response) {
                 return response.json();
             });
     }
 
-    createEssayQuestion(examId, question) {
+    createBlanksQuestion(examId, question) {
         return fetch(BLANKS_EID_API_URL.replace('EID', examId), {
             body: JSON.stringify(question),
             headers: { 'Content-Type': 'application/json' },
@@ -33,7 +33,7 @@ export default class BlanksQuestionService {
         { return response.json(); })
     }
 
-    deleteEssayQuestion(questionId) {
+    deleteBlanksQuestion(questionId) {
         return fetch(BLANKS_API_URL + '/' + questionId,
           {
             method: 'DELETE'
