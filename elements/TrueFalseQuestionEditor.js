@@ -3,6 +3,7 @@ import {View, ScrollView} from 'react-native'
 import {Text, Button, CheckBox} from 'react-native-elements'
 import {FormLabel, FormInput, FormValidationMessage}
   from 'react-native-elements'
+import TrueFalseQuestionService from "../services/TrueFalseQuestionService"
 
 class TrueFalseQuestionEditor extends React.Component {
   static navigationOptions = { title: "True False"}
@@ -17,6 +18,7 @@ class TrueFalseQuestionEditor extends React.Component {
       },
       examId: 1
     }
+    this.trueFalseQuestionService = TrueFalseQuestionService.instance();
   }
 
   componentDidMount() {
@@ -28,9 +30,9 @@ class TrueFalseQuestionEditor extends React.Component {
       console.log(questionId)
 
       if (questionId != null) {
-          fetch("https://cs4550-java-server-npristin.herokuapp.com/api/truefalse/" + questionId)
-          .then(response => (response.json()))
-          .then(question => this.setState({question: question}))
+          this.trueFalseQuestionService
+            .findTrueFalseQuestionById(questionId)
+            .then(question => this.setState({question: question}))
       }
    }
 
@@ -41,11 +43,9 @@ class TrueFalseQuestionEditor extends React.Component {
   createTrueFalseQuestion() {
       console.log("creating true false question")
       console.log(this.state.question)
-      fetch("https://cs4550-java-server-npristin.herokuapp.com/api/exam/" + this.state.examId + "/truefalse", {
-              body: JSON.stringify(this.state.question),
-              headers: { 'Content-Type': 'application/json'},
-              method: 'POST'
-      }).then(this.props.navigation.goBack())
+      this.trueFalseQuestionService
+        .createTrueFalseQuestion(this.state.examId, this.state.question)
+        .then(this.props.navigation.goBack())
     }
 
   render() {
