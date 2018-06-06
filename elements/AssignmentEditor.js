@@ -90,7 +90,7 @@ class AssignmentEditor extends React.Component {
         <Text h3>Preview</Text>
         <Text h4>{this.state.assignment.title}</Text>
         <Text>{this.state.assignment.description}</Text>
-        <Text>{this.state.assignment.points} Pts</Text>
+        <Text style={{alignSelf: 'flex-end'}}>{this.state.assignment.points} Pts</Text>
 
         <Text h5>Essay Answer</Text>
         <View style={styles.inputView}>

@@ -1,18 +1,19 @@
 import React from 'react'
-import {ScrollView, View, TextInput, StyleSheet} from 'react-native'
+import {View, TextInput, StyleSheet, ScrollView} from 'react-native'
 import {Text, Button, CheckBox} from 'react-native-elements'
 import {FormLabel, FormInput, FormValidationMessage}
   from 'react-native-elements'
 
-class EssayQuestionEditor extends React.Component {
-  static navigationOptions = { title: "Essay"}
+class FillInTheBlanksQuestionEditor extends React.Component {
+  static navigationOptions = { title: "Fill In The Blanks"}
   constructor(props) {
     super(props)
     this.state = {
         question: {
           title: '',
           description: '',
-          points: 0
+          points: 0,
+          variableText: ''
         },
         examId: 1
     }
@@ -22,11 +23,12 @@ class EssayQuestionEditor extends React.Component {
     const examId = navigation.getParam("examId")
     const questionId = navigation.getParam("questionId")
     this.setState({examId: examId})
+    this.setState({questionId: questionId})
     console.log(this.state.examId)
     console.log(questionId)
 
     if (questionId != null) {
-        fetch("https://cs4550-java-server-npristin.herokuapp.com/api/essay/" + questionId)
+        fetch("https://cs4550-java-server-npristin.herokuapp.com/api/blanks/" + questionId)
         .then(response => (response.json()))
         .then(question => this.setState({question: question}))
     }
@@ -36,18 +38,18 @@ class EssayQuestionEditor extends React.Component {
     this.setState(newState)
   }
 
-  createEssayQuestion() {
-    console.log("creating essay question")
-    console.log(this.state.question)
-    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/exam/" + this.state.examId + "/essay", {
-            body: JSON.stringify(this.state.question),
-            headers: { 'Content-Type': 'application/json'},
-            method: 'POST'
-    })
+  createFillInTheBlanks() {
+      console.log("creating fill in the blanks")
+      console.log(this.state.question)
+      fetch("https://cs4550-java-server-npristin.herokuapp.com/api/exam/" + this.state.examId + "/blanks", {
+              body: JSON.stringify(this.state.question),
+              headers: { 'Content-Type': 'application/json'},
+              method: 'POST'
+      }).then(response => console.log(response))
   }
 
-  deleteEssayQuestion() {
-      fetch("https://cs4550-java-server-npristin.herokuapp.com/api/essay/" + this.state.questionId, {
+  deleteFillInTheBlanks() {
+      fetch("https://cs4550-java-server-npristin.herokuapp.com/api/blanks/" + this.state.questionId, {
               method: 'DELETE'
           }).then(this.props.navigation.goBack())
   }
@@ -85,23 +87,47 @@ class EssayQuestionEditor extends React.Component {
           Points are required
         </FormValidationMessage>
 
+        <FormLabel>Question Text</FormLabel>
+        <View style={{backgroundColor: 'white', height: 100}}>
+        <TextInput
+            returnKeyType='none'
+            multiline={true}
+            style={styles.input}
+            value={this.state.question.variableText}
+            onChangeText={
+                text => this.updateForm({question: {...this.state.question, variableText: text}})
+        }/>
+        </View>
+        <FormValidationMessage>
+          Description is required
+        </FormValidationMessage>
+
         <Text h3>Preview</Text>
         <Text h2>{this.state.question.title}</Text>
         <Text>{this.state.question.description}</Text>
         <Text style={{alignSelf: 'flex-end'}}>{this.state.question.points} Pts</Text>
-        <View style={styles.inputView}>
-            <TextInput
-                multiline={true}
-                numberOfLines={10}/>
+        <View style={{paddingBottom: 40}}>
+        <TextInput
+            multiline={true}
+            numberOfLines={20}
+            value={this.state.question.variableText.replace(/(\[).+?(\])/g,
+                        React.createElement("TextInput"))}/>
         </View>
+        <View>
+            <Text>
+            Hi
+            <TextInput value="hi"/>
+            </Text>
+        </View>
+
         <View style={{paddingTop:10}}>
         <Button	backgroundColor="green"
                  color="white"
                  title="Save"
-                 onPress={() => this.createEssayQuestion()}/>
+                 onPress={() => this.createFillInTheBlanks()} />
         </View>
         <View style={{paddingTop:10, paddingBottom: 20}}>
-        {this.state.assignmentId == null ?
+        {this.state.questionId == null ?
             <Button	backgroundColor="red"
                  color="white"
                  title="Cancel"
@@ -109,7 +135,7 @@ class EssayQuestionEditor extends React.Component {
           : <Button backgroundColor="red"
                  color="white"
                  title="Delete"
-                 onPress={() => this.deleteEssayQuestion()}/>
+                 onPress={() => this.deleteFillInTheBlanks()}/>
         }
         </View>
       </ScrollView>
@@ -117,7 +143,7 @@ class EssayQuestionEditor extends React.Component {
   }
 }
 
-export default EssayQuestionEditor
+export default FillInTheBlanksQuestionEditor
 
 const styles = StyleSheet.create({
    inputView: {

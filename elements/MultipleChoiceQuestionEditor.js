@@ -141,7 +141,7 @@ class MultipleChoiceQuestionEditor extends React.Component {
         <Text h3>Preview</Text>
         <Text h2>{this.state.question.title}</Text>
         <Text>{this.state.question.description}</Text>
-        <Text>{this.state.question.points} Pts</Text>
+        <Text style={{alignSelf: 'flex-end'}}>{this.state.question.points} Pts</Text>
         {this.state.question.options != '' ?
             this.state.question.options.split(",").map(
                 (option, index) => (
