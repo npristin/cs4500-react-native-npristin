@@ -48,10 +48,9 @@ class AssignmentEditor extends React.Component {
   }
 
   deleteAssignment() {
-      fetch("https://cs4550-java-server-npristin.herokuapp.com/api/assignment/" + this.state.assignmentId, {
-          method: 'DELETE'
-      }).then(response => (console.log(response)))
-      this.props.navigation.goBack()
+      this.widgetService
+        .deleteAssignmentWidget(this.state.assignmentId)
+        .then(this.props.navigation.goBack())
   }
 
   render() {
