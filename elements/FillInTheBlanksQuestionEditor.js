@@ -3,6 +3,7 @@ import {View, TextInput, StyleSheet, ScrollView} from 'react-native'
 import {Text, Button, CheckBox} from 'react-native-elements'
 import {FormLabel, FormInput, FormValidationMessage}
   from 'react-native-elements'
+import BlanksQuestionService from "../services/BlanksQuestionService"
 
 class FillInTheBlanksQuestionEditor extends React.Component {
   static navigationOptions = { title: "Fill In The Blanks"}
@@ -17,6 +18,7 @@ class FillInTheBlanksQuestionEditor extends React.Component {
         },
         examId: 1
     }
+    this.blanksQuestionService = BlanksQuestionService.instance();
   }
   componentDidMount() {
     const {navigation} = this.props;
@@ -28,9 +30,9 @@ class FillInTheBlanksQuestionEditor extends React.Component {
     console.log(questionId)
 
     if (questionId != null) {
-        fetch("https://cs4550-java-server-npristin.herokuapp.com/api/blanks/" + questionId)
-        .then(response => (response.json()))
-        .then(question => this.setState({question: question}))
+        this.blanksQuestionService
+            .findBlanksQuestionById(questionId)
+            .then(question => this.setState({question: question}))
     }
   }
 
@@ -41,17 +43,16 @@ class FillInTheBlanksQuestionEditor extends React.Component {
   createFillInTheBlanks() {
       console.log("creating fill in the blanks")
       console.log(this.state.question)
-      fetch("https://cs4550-java-server-npristin.herokuapp.com/api/exam/" + this.state.examId + "/blanks", {
-              body: JSON.stringify(this.state.question),
-              headers: { 'Content-Type': 'application/json'},
-              method: 'POST'
-      }).then(this.props.navigation.goBack())
+      this.blanksQuestionService
+        .createBlanksQuestion(this.state.examId, this.state.question)
+        .then(response => console.log(response))
+        .then(this.props.navigation.goBack())
   }
 
   deleteFillInTheBlanks() {
-      fetch("https://cs4550-java-server-npristin.herokuapp.com/api/blanks/" + this.state.questionId, {
-              method: 'DELETE'
-          }).then(this.props.navigation.goBack())
+      this.blanksQuestionService
+        .deleteBlanksQuestion(this.state.questionId)
+        .then(this.props.navigation.goBack())
   }
 
   render() {
