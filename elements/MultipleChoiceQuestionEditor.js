@@ -26,6 +26,7 @@ class MultipleChoiceQuestionEditor extends React.Component {
     const examId = navigation.getParam("examId")
     const questionId = navigation.getParam("questionId")
     this.setState({examId: examId})
+    this.setState({questionId: questionId})
     console.log(this.state.examId)
     console.log(questionId)
 
@@ -48,6 +49,12 @@ class MultipleChoiceQuestionEditor extends React.Component {
             headers: { 'Content-Type': 'application/json'},
             method: 'POST'
     }).then(response => console.log(response))
+  }
+
+  deleteMultipleChoiceQuestion() {
+    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/choice/" + this.state.questionId, {
+            method: 'DELETE'
+        }).then(this.props.navigation.goBack())
   }
 
   render() {
@@ -113,10 +120,13 @@ class MultipleChoiceQuestionEditor extends React.Component {
                         <ListItem
                             style={{ backgroundColor: 'rgb(204, 206, 209)'}}
                             leftIcon={{name: "check-circle"}}
+                            rightIcon={{name: "cancel", color:"red"}}
+                            onPressRightIcon={() => alert("hi!")}
                             key={index}
                             title={option}/>
                         : <ListItem
                             leftIcon={{name: "add-circle-outline"}}
+                            rightIcon={{name: "cancel", color:"red"}}
                             key={index}
                             title={option}
                             onPress={() => this.updateForm(
@@ -127,19 +137,6 @@ class MultipleChoiceQuestionEditor extends React.Component {
         <FormInput onChangeText={
           text => this.updateForm({question: {options: text}})
         }/>
-
-        <View style={{paddingTop:10}}>
-        <Button	backgroundColor="green"
-                 color="white"
-                 title="Save"
-                 onPress={() => this.createMultipleChoiceQuestion()}/>
-        </View>
-        <View style={{paddingTop:10}}>
-        <Button	backgroundColor="red"
-                 color="white"
-                 title="Cancel"
-                 onPress={() => this.props.navigation.goBack()}/>
-        </View>
 
         <Text h3>Preview</Text>
         <Text h2>{this.state.question.title}</Text>
@@ -155,6 +152,26 @@ class MultipleChoiceQuestionEditor extends React.Component {
             ))
             : null
         }
+
+        <View style={{paddingTop:10}}>
+        <Button	backgroundColor="green"
+                 color="white"
+                 title="Save"
+                 onPress={() => this.createMultipleChoiceQuestion()}/>
+        </View>
+        <View style={{paddingTop:10, paddingBottom: 20}}>
+        {this.state.questionId == null ?
+            <Button	backgroundColor="red"
+                 color="white"
+                 title="Cancel"
+                 onPress={() => this.props.navigation.goBack()}/>
+          : <Button backgroundColor="red"
+                 color="white"
+                 title="Delete"
+                 onPress={() => this.deleteMultipleChoiceQuestion()}/>
+        }
+        </View>
+
       </ScrollView>
     )
   }
