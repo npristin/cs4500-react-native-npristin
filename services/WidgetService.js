@@ -3,6 +3,7 @@ let _singleton = Symbol();
 const EXAM_WIDGET_API_URL = 'https://cs4550-java-server-npristin.herokuapp.com/api/widget';
 const EXAM_LID_API_URL = 'https://cs4550-java-server-npristin.herokuapp.com/api/lesson/LID/exam';
 const ASSIGNMENT_WIDGET_API_URL = 'https://cs4550-java-server-npristin.herokuapp.com/api/assignment';
+const ASSIGNMENT_LID_API_URL = 'https://cs4550-java-server-npristin.herokuapp.com/api/lesson/LID/assignment';
 
 export default class WidgetService {
     constructor(singletonToken) {
@@ -47,5 +48,14 @@ export default class WidgetService {
             .then(function(response) {
                 return response.json();
             });
+    }
+
+    createAssignmentWidget(lessonId, widget) {
+        return fetch(ASSIGNMENT_LID_API_URL.replace('LID', lessonId), {
+            body: JSON.stringify(widget),
+            headers: { 'Content-Type': 'application/json' },
+            method: 'POST'
+          }).then(function (response)
+        { return response.json(); })
     }
 }
