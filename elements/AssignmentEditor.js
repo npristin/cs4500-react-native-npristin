@@ -15,7 +15,6 @@ class AssignmentEditor extends React.Component {
         points: 0,
         className: "Assignment"
       },
-      assignmentId: 1,
       lessonId: 1
     }
   }
@@ -88,18 +87,6 @@ class AssignmentEditor extends React.Component {
           Points are required
         </FormValidationMessage>
 
-        <View style={{paddingTop:10}}>
-        <Button	backgroundColor="green"
-                 color="white"
-                 title="Save"
-                 onPress={() => this.createAssignment()} />
-        </View>
-        <View style={{paddingTop:10}}>
-        <Button	backgroundColor="red"
-                 color="white"
-                 title="Cancel"
-                 onPress={() => this.props.navigation.goBack()}/>
-        </View>
         <Text h3>Preview</Text>
         <Text h4>{this.state.assignment.title}</Text>
         <Text>{this.state.assignment.description}</Text>
@@ -130,11 +117,23 @@ class AssignmentEditor extends React.Component {
                     numberOfLines={5}/>
         </View>
         </View>
-        <View style={{paddingTop:15}}>
-        <Button backgroundColor="red"
-                   color="white"
-                   title="Delete Assignment"
-                   onPress={() => this.deleteAssignment()}/>
+        <View style={{paddingTop:10}}>
+        <Button	backgroundColor="green"
+                 color="white"
+                 title="Save"
+                 onPress={() => this.createAssignment()}/>
+        </View>
+        <View style={{paddingTop:10, paddingBottom: 20}}>
+        {this.state.assignmentId == null ?
+            <Button	backgroundColor="red"
+                 color="white"
+                 title="Cancel"
+                 onPress={() => this.props.navigation.goBack()}/>
+          : <Button backgroundColor="red"
+                 color="white"
+                 title="Delete"
+                 onPress={() => this.deleteAssignment()}/>
+        }
         </View>
       </ScrollView>
     )
