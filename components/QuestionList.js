@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {View, Alert, ScrollView} from 'react-native'
 import {Text, ListItem, Button} from 'react-native-elements'
 import WidgetService from "../services/WidgetService";
+import QuestionService from "../services/QuestionService"
 
 class QuestionList extends Component {
   static navigationOptions = {title: 'Questions'}
@@ -13,15 +14,16 @@ class QuestionList extends Component {
     }
 
     this.widgetService = WidgetService.instance();
+    this.questionService = QuestionService.instance();
   }
   componentDidMount() {
     const {navigation} = this.props;
     const examId = navigation.getParam("examId")
     this.setState({examId: examId})
     console.log(this.state.examId)
-    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/exam/" + examId + "/question")
-      .then(response => (response.json()))
-      .then(questions => this.setState({questions}))
+    this.questionService
+        .findAllQuestionsForExam(examId)
+        .then(questions => this.setState({questions}))
   }
 
   deleteExam() {
