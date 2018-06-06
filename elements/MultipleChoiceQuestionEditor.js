@@ -48,13 +48,13 @@ class MultipleChoiceQuestionEditor extends React.Component {
     console.log(this.state.question)
     this.choiceQuestionService
         .createMultipleChoiceQuestion(this.state.examId, this.state.question)
-        .then(this.props.navigation.goBack())
+        .then(this.props.navigation.navigate('QuestionList', {questions: []}))
   }
 
   deleteMultipleChoiceQuestion() {
     this.choiceQuestionService
         .deleteMultipleChoiceQuestion(this.state.questionId)
-        .then(this.props.navigation.goBack())
+        .then(this.props.navigation.navigate('QuestionList', {questions: []}))
   }
 
   render() {

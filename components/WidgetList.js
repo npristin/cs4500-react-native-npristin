@@ -41,6 +41,13 @@ class WidgetList extends Component {
     this.findAllWidgets(lessonId)
   }
 
+  componentWillReceiveProps(newProps) {
+    const {navigation} = newProps;
+    console.log(newProps)
+
+    this.findAllWidgets(this.state.lessonId)
+  }
+
   createExam() {
     console.log("creating exam")
     this.setModalVisible(!this.state.modalVisible)

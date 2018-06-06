@@ -46,13 +46,13 @@ class EssayQuestionEditor extends React.Component {
     console.log(this.state.question)
     this.essayQuestionService
         .createEssayQuestion(this.state.examId, this.state.question)
-        .then(this.props.navigation.goBack())
+        .then(this.props.navigation.navigate('QuestionList', {questions: []}))
   }
 
   deleteEssayQuestion() {
       this.essayQuestionService
         .deleteEssayQuestion(this.state.questionId)
-        .then(this.props.navigation.goBack())
+        .then(this.props.navigation.navigate('QuestionList', {questions: []}))
   }
 
   render() {

@@ -46,13 +46,13 @@ class TrueFalseQuestionEditor extends React.Component {
       console.log(this.state.question)
       this.trueFalseQuestionService
         .createTrueFalseQuestion(this.state.examId, this.state.question)
-        .then(this.props.navigation.goBack())
+        .then(this.props.navigation.navigate('QuestionList', {questions: []}))
   }
 
   deleteTrueFalseQuestion() {
       this.trueFalseQuestionService
         .deleteTrueFalseQuestion(this.state.questionId)
-        .then(this.props.navigation.goBack())
+        .then(this.props.navigation.navigate('QuestionList', {questions: []}))
   }
 
   render() {

@@ -44,13 +44,13 @@ class AssignmentEditor extends React.Component {
       console.log(this.state.assignment)
       this.widgetService
         .createAssignmentWidget(this.state.lessonId, this.state.assignment)
-        .then(this.props.navigation.goBack())
+        .then(this.props.navigation.navigate('WidgetList', {widgets: []}))
   }
 
   deleteAssignment() {
       this.widgetService
         .deleteAssignmentWidget(this.state.assignmentId)
-        .then(this.props.navigation.goBack())
+        .then(this.props.navigation.navigate('WidgetList', {widgets: []}))
   }
 
   render() {

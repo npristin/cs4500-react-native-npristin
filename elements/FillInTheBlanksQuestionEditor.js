@@ -46,13 +46,13 @@ class FillInTheBlanksQuestionEditor extends React.Component {
       this.blanksQuestionService
         .createBlanksQuestion(this.state.examId, this.state.question)
         .then(response => console.log(response))
-        .then(this.props.navigation.goBack())
+        .then(this.props.navigation.navigate('QuestionList', {questions: []}))
   }
 
   deleteFillInTheBlanks() {
       this.blanksQuestionService
         .deleteBlanksQuestion(this.state.questionId)
-        .then(this.props.navigation.goBack())
+        .then(this.props.navigation.navigate('QuestionList', {questions: []}))
   }
 
   render() {

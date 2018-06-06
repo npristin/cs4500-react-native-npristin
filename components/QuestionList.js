@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Alert, ScrollView} from 'react-native'
+import {View, Alert, ScrollView, StyleSheet} from 'react-native'
 import {Text, ListItem, Button} from 'react-native-elements'
 import WidgetService from "../services/WidgetService";
 import QuestionService from "../services/QuestionService"
@@ -26,15 +26,24 @@ class QuestionList extends Component {
         .then(questions => this.setState({questions}))
   }
 
+  componentWillReceiveProps(newProps) {
+      const {navigation} = newProps;
+      console.log(newProps)
+
+      this.questionService
+        .findAllQuestionsForExam(this.state.examId)
+        .then(questions => this.setState({questions}))
+  }
+
   deleteExam() {
     this.widgetService
         .deleteExamWidget(this.state.examId)
-        .then(this.props.navigation.goBack())
+        .then(this.props.navigation.navigate('WidgetList', {widgets: []}))
   }
 
   render() {
     return(
-      <ScrollView style={{padding: 15}}>
+      <ScrollView style={StyleSheet.absoluteFill}>
       <Text h4>Add Exam Question</Text>
       {questions.map( (question, index) => (
         <ListItem
