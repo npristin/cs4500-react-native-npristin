@@ -1,6 +1,6 @@
 let _singleton = Symbol();
 
-const WIDGET_API_URL = 'https://cs4550-java-server-npristin.herokuapp.com/api/widget';
+const EXAM_WIDGET_API_URL = 'https://cs4550-java-server-npristin.herokuapp.com/api/widget';
 const EXAM_LID_API_URL = 'https://cs4550-java-server-npristin.herokuapp.com/api/lesson/LID/exam';
 
 export default class WidgetService {
@@ -19,7 +19,7 @@ export default class WidgetService {
 
 
     findAllWidgets() {
-        return fetch(WIDGET_API_URL)
+        return fetch(EXAM_WIDGET_API_URL)
           .then(function(response){
            return response.json();
           });
@@ -32,5 +32,12 @@ export default class WidgetService {
             method: 'POST'
           }).then(function (response)
         { return response.json(); })
+    }
+
+    deleteExamWidget(examId) {
+        return fetch(EXAM_WIDGET_API_URL + '/' + examId,
+          {
+            method: 'DELETE'
+          });
     }
 }
