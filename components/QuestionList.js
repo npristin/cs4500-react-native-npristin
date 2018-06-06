@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import {View, Alert} from 'react-native'
+import {View, Alert, ScrollView} from 'react-native'
 import {Text, ListItem, Button} from 'react-native-elements'
+import WidgetService from "../services/WidgetService";
 
 class QuestionList extends Component {
   static navigationOptions = {title: 'Questions'}
@@ -10,6 +11,8 @@ class QuestionList extends Component {
       questions: [],
       examId: 1
     }
+
+    this.widgetService = WidgetService.instance();
   }
   componentDidMount() {
     const {navigation} = this.props;
@@ -22,15 +25,14 @@ class QuestionList extends Component {
   }
 
   deleteExam() {
-    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/exam/" + this.state.examId, {
-        method: 'DELETE'
-    }).then(response => (console.log(response)))
-    this.props.navigation.goBack()
+    this.widgetService
+        .deleteExamWidget(this.state.examId)
+        .then(this.props.navigation.goBack())
   }
 
   render() {
     return(
-      <View style={{padding: 15}}>
+      <ScrollView style={{padding: 15}}>
       <Text h4>Add Exam Question</Text>
       {questions.map( (question, index) => (
         <ListItem
@@ -47,13 +49,16 @@ class QuestionList extends Component {
             onPress={() => {
               if(question.type === "truefalse")
                 this.props.navigation
-                  .navigate("TrueFalseQuestionEditor", {questionId: question.id})
+                  .navigate("TrueFalseQuestionEditor", {questionId: question.id, examId: this.state.examId})
               if(question.type === "choice")
                 this.props.navigation
                   .navigate("MultipleChoiceQuestionEditor", {questionId: question.id, examId: this.state.examId})
               if(question.type === "essay")
                 this.props.navigation
                   .navigate("EssayQuestionEditor", {questionId: question.id, examId: this.state.examId})
+              if(question.type === "blanks")
+                this.props.navigation
+                  .navigate("FillInTheBlanksQuestionEditor", {questionId: question.id, examId: this.state.examId})
             }}
             key={index}
             subtitle={question.description}
@@ -64,7 +69,7 @@ class QuestionList extends Component {
                title="Delete Exam"
                onPress={() => this.deleteExam()}/>
       </View>
-      </View>
+      </ScrollView>
     )
   }
 }
