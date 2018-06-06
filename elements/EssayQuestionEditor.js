@@ -46,6 +46,12 @@ class EssayQuestionEditor extends React.Component {
     })
   }
 
+  deleteEssayQuestion() {
+      fetch("https://cs4550-java-server-npristin.herokuapp.com/api/essay/" + this.state.questionId, {
+              method: 'DELETE'
+          }).then(this.props.navigation.goBack())
+  }
+
   render() {
     return(
       <ScrollView>
@@ -79,19 +85,6 @@ class EssayQuestionEditor extends React.Component {
           Points are required
         </FormValidationMessage>
 
-        <View style={{paddingTop:10}}>
-        <Button	backgroundColor="green"
-                 color="white"
-                 title="Save"
-                 onPress={() => this.createEssayQuestion()} />
-        </View>
-        <View style={{paddingTop:10}}>
-        <Button	backgroundColor="red"
-                 color="white"
-                 title="Cancel"
-                 onPress={() => this.props.navigation.goBack()}/>
-        </View>
-
         <Text h3>Preview</Text>
         <Text h2>{this.state.question.title}</Text>
         <Text>{this.state.question.description}</Text>
@@ -100,6 +93,24 @@ class EssayQuestionEditor extends React.Component {
             <TextInput
                 multiline={true}
                 numberOfLines={10}/>
+        </View>
+        <View style={{paddingTop:10}}>
+        <Button	backgroundColor="green"
+                 color="white"
+                 title="Save"
+                 onPress={() => this.createEssayQuestion()}/>
+        </View>
+        <View style={{paddingTop:10, paddingBottom: 20}}>
+        {this.state.assignmentId == null ?
+            <Button	backgroundColor="red"
+                 color="white"
+                 title="Cancel"
+                 onPress={() => this.props.navigation.goBack()}/>
+          : <Button backgroundColor="red"
+                 color="white"
+                 title="Delete"
+                 onPress={() => this.deleteEssayQuestion()}/>
+        }
         </View>
       </ScrollView>
     )
