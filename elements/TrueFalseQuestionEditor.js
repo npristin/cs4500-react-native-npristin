@@ -26,6 +26,7 @@ class TrueFalseQuestionEditor extends React.Component {
       const examId = navigation.getParam("examId")
       const questionId = navigation.getParam("questionId")
       this.setState({examId: examId})
+      this.setState({questionId: questionId})
       console.log(this.state.examId)
       console.log(questionId)
 
@@ -46,7 +47,13 @@ class TrueFalseQuestionEditor extends React.Component {
       this.trueFalseQuestionService
         .createTrueFalseQuestion(this.state.examId, this.state.question)
         .then(this.props.navigation.goBack())
-    }
+  }
+
+  deleteTrueFalseQuestion() {
+      this.trueFalseQuestionService
+        .deleteTrueFalseQuestion(this.state.questionId)
+        .then(this.props.navigation.goBack())
+  }
 
   render() {
     return(
@@ -84,6 +91,12 @@ class TrueFalseQuestionEditor extends React.Component {
         <CheckBox onPress={() => this.updateForm({question: {...this.state.question, isTrue: !this.state.question.isTrue}})}
                   checked={this.state.question.isTrue} title='The answer is true'/>
 
+        <Text h3>Preview</Text>
+        <Text h2>{this.state.question.title}</Text>
+        <Text>{this.state.question.description}</Text>
+        <Text style={{alignSelf: 'flex-end'}}>{this.state.question.points}</Text>
+        <CheckBox title='True'/>
+
         <View style={{paddingTop:10}}>
         <Button	backgroundColor="green"
                  color="white"
@@ -91,17 +104,17 @@ class TrueFalseQuestionEditor extends React.Component {
                  onPress={() => this.createTrueFalseQuestion()}/>
         </View>
         <View style={{paddingTop:10}}>
-        <Button	backgroundColor="red"
+        {this.state.questionId == null ?
+            <Button	backgroundColor="red"
                  color="white"
                  title="Cancel"
                  onPress={() => this.props.navigation.goBack()}/>
+          : <Button backgroundColor="red"
+                 color="white"
+                 title="Delete"
+                 onPress={() => this.deleteTrueFalseQuestion()}/>
+        }
         </View>
-
-        <Text h3>Preview</Text>
-        <Text h2>{this.state.question.title}</Text>
-        <Text>{this.state.question.description}</Text>
-        <Text style={{alignSelf: 'flex-end'}}>{this.state.question.points}</Text>
-        <CheckBox title='True'/>
 
       </ScrollView>
     )
