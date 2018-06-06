@@ -42,11 +42,9 @@ class AssignmentEditor extends React.Component {
   createAssignment() {
       console.log("creating/updating assignment")
       console.log(this.state.assignment)
-      fetch("https://cs4550-java-server-npristin.herokuapp.com/api/lesson/" + this.state.lessonId + "/assignment", {
-              body: JSON.stringify(this.state.assignment),
-              headers: { 'Content-Type': 'application/json'},
-              method: 'POST'
-      }).then(this.props.navigation.goBack())
+      this.widgetService
+        .createAssignmentWidget(this.state.lessonId, this.state.assignment)
+        .then(this.props.navigation.goBack())
   }
 
   deleteAssignment() {
