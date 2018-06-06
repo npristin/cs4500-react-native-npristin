@@ -74,7 +74,7 @@ class QuestionList extends Component {
             key={index}
             subtitle={question.description}
             title={question.title}/>))}
-      <View style={{paddingTop:10}}>
+      <View style={{paddingTop:10, paddingBottom: 15}}>
       <Button backgroundColor="red"
                color="white"
                title="Delete Exam"
