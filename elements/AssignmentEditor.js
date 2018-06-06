@@ -3,6 +3,7 @@ import {ScrollView, View, TextInput, StyleSheet} from 'react-native'
 import {Text, Button, CheckBox} from 'react-native-elements'
 import {FormLabel, FormInput, FormValidationMessage}
   from 'react-native-elements'
+import WidgetService from "../services/WidgetService";
 
 class AssignmentEditor extends React.Component {
   static navigationOptions = { title: "Assignment"}
@@ -16,7 +17,8 @@ class AssignmentEditor extends React.Component {
         className: "Assignment"
       },
       lessonId: 1
-    }
+    },
+    this.widgetService = WidgetService.instance()
   }
 
   componentDidMount() {
@@ -27,8 +29,8 @@ class AssignmentEditor extends React.Component {
       this.setState({lessonId: lessonId})
       console.log(this.state.assignmentId)
       if (assignmentId != null) {
-        fetch("https://cs4550-java-server-npristin.herokuapp.com/api/assignment/"+assignmentId)
-            .then(response => (response.json()))
+        this.widgetService
+            .findAssignmentById(assignmentId)
             .then(assignment => this.setState({assignment: assignment}))
       }
   }
