@@ -44,7 +44,7 @@ class AssignmentEditor extends React.Component {
               body: JSON.stringify(this.state.assignment),
               headers: { 'Content-Type': 'application/json'},
               method: 'POST'
-      })
+      }).then(this.props.navigation.goBack())
   }
 
   deleteAssignment() {

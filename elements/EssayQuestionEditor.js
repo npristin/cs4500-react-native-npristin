@@ -43,7 +43,7 @@ class EssayQuestionEditor extends React.Component {
             body: JSON.stringify(this.state.question),
             headers: { 'Content-Type': 'application/json'},
             method: 'POST'
-    })
+    }).then(this.props.navigation.goBack())
   }
 
   deleteEssayQuestion() {
