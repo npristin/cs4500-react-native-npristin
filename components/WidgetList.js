@@ -44,12 +44,9 @@ class WidgetList extends Component {
   createExam() {
     console.log("creating exam")
     this.setModalVisible(!this.state.modalVisible)
-    fetch("https://cs4550-java-server-npristin.herokuapp.com/api/lesson/" + this.state.lessonId + "/exam", {
-            body: JSON.stringify(this.state.exam),
-            headers: { 'Content-Type': 'application/json'},
-            method: 'POST'
-        }
-    ).then(() => this.findAllWidgets(this.state.lessonId))
+    this.widgetService
+        .createExamWidget(this.state.lessonId, this.state.exam)
+        .then(() => this.findAllWidgets(this.state.lessonId))
   }
 
   updateTitle(text) {
