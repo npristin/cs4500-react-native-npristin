@@ -58,4 +58,11 @@ export default class WidgetService {
           }).then(function (response)
         { return response.json(); })
     }
+
+    deleteAssignmentWidget(assignmentId) {
+        return fetch(ASSIGNMENT_WIDGET_API_URL + '/' + assignmentId,
+          {
+            method: 'DELETE'
+          });
+    }
 }
