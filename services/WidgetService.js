@@ -6,7 +6,7 @@ const EXAM_LID_API_URL = 'https://cs4550-java-server-npristin.herokuapp.com/api/
 export default class WidgetService {
     constructor(singletonToken) {
         if (_singleton !== singletonToken) {
-            throw new Error('Singleton module service.')
+            throw new Error('Singleton widget service.')
         }
     }
 
