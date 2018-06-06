@@ -2,6 +2,7 @@ let _singleton = Symbol();
 
 const EXAM_WIDGET_API_URL = 'https://cs4550-java-server-npristin.herokuapp.com/api/widget';
 const EXAM_LID_API_URL = 'https://cs4550-java-server-npristin.herokuapp.com/api/lesson/LID/exam';
+const ASSIGNMENT_WIDGET_API_URL = 'https://cs4550-java-server-npristin.herokuapp.com/api/assignment';
 
 export default class WidgetService {
     constructor(singletonToken) {
@@ -39,5 +40,12 @@ export default class WidgetService {
           {
             method: 'DELETE'
           });
+    }
+
+    findAssignmentById(assignmentId) {
+        return fetch(ASSIGNMENT_WIDGET_API_URL + '/' + assignmentId)
+            .then(function(response) {
+                return response.json();
+            });
     }
 }
