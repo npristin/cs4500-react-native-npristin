@@ -33,4 +33,10 @@ export default class EssayQuestionService {
         { return response.json(); })
     }
 
+    deleteEssayQuestion(questionId) {
+        return fetch(ESSAY_API_URL + '/' + questionId,
+          {
+            method: 'DELETE'
+          });
+    }
 }
