@@ -24,4 +24,13 @@ export default class EssayQuestionService {
             });
     }
 
+    createEssayQuestion(examId, question) {
+        return fetch(ESSAY_EID_API_URL.replace('EID', examId), {
+            body: JSON.stringify(question),
+            headers: { 'Content-Type': 'application/json' },
+            method: 'POST'
+          }).then(function (response)
+        { return response.json(); })
+    }
+
 }
