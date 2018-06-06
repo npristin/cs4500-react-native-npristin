@@ -17,5 +17,11 @@ export default class EssayQuestionService {
         return this[_singleton];
     }
 
-    
+    findEssayById(questionId) {
+        return fetch(ESSAY_API_URL + '/' + questionId)
+            .then(function(response) {
+                return response.json();
+            });
+    }
+
 }
