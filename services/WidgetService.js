@@ -25,6 +25,12 @@ export default class WidgetService {
           });
     }
 
-
-
+    createExamWidget(lessonId, widget) {
+        return fetch(EXAM_LID_API_URL.replace('LID', lessonId), {
+            body: JSON.stringify(widget),
+            headers: { 'Content-Type': 'application/json' },
+            method: 'POST'
+          }).then(function (response)
+        { return response.json(); })
+    }
 }
