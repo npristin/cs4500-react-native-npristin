@@ -18,7 +18,8 @@ class MultipleChoiceQuestionEditor extends React.Component {
           correctOption: 0
       },
       examId: 1,
-      option: ''
+      option: '',
+      previewMode: false
     }
     this.choiceQuestionService = ChoiceQuestionService.instance();
   }
@@ -72,6 +73,8 @@ class MultipleChoiceQuestionEditor extends React.Component {
   render() {
     return(
       <ScrollView>
+      {!this.state.previewMode &&
+        <ScrollView>
         <FormLabel>Title</FormLabel>
         <FormInput
             value={this.state.question.title}
@@ -146,8 +149,29 @@ class MultipleChoiceQuestionEditor extends React.Component {
                                 {question: {...this.state.question, correctOption: index}})}/>
             )) : null
         }
+        <View style={{paddingTop:10}}>
+        <Button	backgroundColor="green"
+                 color="white"
+                 title="Save"
+                 onPress={() => this.createMultipleChoiceQuestion()}/>
+        </View>
+        <View style={{paddingTop:10}}>
+        {this.state.questionId == null ?
+            <Button	backgroundColor="red"
+                 color="white"
+                 title="Cancel"
+                 onPress={() => this.props.navigation.goBack()}/>
+          : <Button backgroundColor="red"
+                 color="white"
+                 title="Delete"
+                 onPress={() => this.deleteMultipleChoiceQuestion()}/>
+        }
+        </View>
+        </ScrollView>
+        }
 
-        <Text h3>Preview</Text>
+        {this.state.previewMode &&
+        <ScrollView>
         <Text h2>{this.state.question.title}</Text>
         <Text>{this.state.question.description}</Text>
         <Text style={{alignSelf: 'flex-end'}}>{this.state.question.points} Pts</Text>
@@ -161,25 +185,12 @@ class MultipleChoiceQuestionEditor extends React.Component {
             ))
             : null
         }
-
-        <View style={{paddingTop:10}}>
-        <Button	backgroundColor="green"
-                 color="white"
-                 title="Save"
-                 onPress={() => this.createMultipleChoiceQuestion()}/>
-        </View>
-        <View style={{paddingTop:10, paddingBottom: 20}}>
-        {this.state.questionId == null ?
-            <Button	backgroundColor="red"
-                 color="white"
-                 title="Cancel"
-                 onPress={() => this.props.navigation.goBack()}/>
-          : <Button backgroundColor="red"
-                 color="white"
-                 title="Delete"
-                 onPress={() => this.deleteMultipleChoiceQuestion()}/>
+        </ScrollView>
         }
-        </View>
+        <Button title="Preview"
+            onPress={() => {
+                this.setState({previewMode: !this.state.previewMode})}}
+            buttonStyle={{marginBottom: 10, marginTop: 10}}/>
 
       </ScrollView>
     )

@@ -16,7 +16,8 @@ class FillInTheBlanksQuestionEditor extends React.Component {
           points: 0,
           variables: ''
         },
-        examId: 1
+        examId: 1,
+        previewMode: false
     }
     this.blanksQuestionService = BlanksQuestionService.instance();
   }
@@ -56,8 +57,12 @@ class FillInTheBlanksQuestionEditor extends React.Component {
   }
 
   render() {
+    const texts = this.state.question.variables.replace(/(\[).+?(\])/g, "[]");
+
     return(
       <ScrollView>
+      {!this.state.previewMode &&
+        <ScrollView>
         <FormLabel>Title</FormLabel>
         <FormInput
             value={this.state.question.title}
@@ -103,31 +108,13 @@ class FillInTheBlanksQuestionEditor extends React.Component {
           Description is required
         </FormValidationMessage>
 
-        <Text h3>Preview</Text>
-        <Text h2>{this.state.question.title}</Text>
-        <Text>{this.state.question.description}</Text>
-        <Text style={{alignSelf: 'flex-end'}}>{this.state.question.points} Pts</Text>
-        <View style={{paddingBottom: 40}}>
-        <TextInput
-            multiline={true}
-            numberOfLines={20}
-            value={this.state.question.variables.replace(/(\[).+?(\])/g,
-                        React.createElement("TextInput"))}/>
-        </View>
-        <View>
-            <Text>
-            Hi
-            <TextInput value="hi"/>
-            </Text>
-        </View>
-
         <View style={{paddingTop:10}}>
         <Button	backgroundColor="green"
                  color="white"
                  title="Save"
                  onPress={() => this.createFillInTheBlanks()} />
         </View>
-        <View style={{paddingTop:10, paddingBottom: 20}}>
+        <View style={{paddingTop:10}}>
         {this.state.questionId == null ?
             <Button	backgroundColor="red"
                  color="white"
@@ -139,6 +126,27 @@ class FillInTheBlanksQuestionEditor extends React.Component {
                  onPress={() => this.deleteFillInTheBlanks()}/>
         }
         </View>
+        </ScrollView>
+        }
+
+        {this.state.previewMode &&
+        <ScrollView>
+        <Text h2>{this.state.question.title}</Text>
+        <Text>{this.state.question.description}</Text>
+        <Text style={{alignSelf: 'flex-end'}}>{this.state.question.points} Pts</Text>
+        <View style={{paddingBottom: 40}}>
+        <TextInput
+            multiline={true}
+            numberOfLines={20}
+            value={this.state.question.variables.replace(/(\[).+?(\])/g,
+                        React.createElement("TextInput"))}/>
+        </View>
+        </ScrollView>
+        }
+        <Button title="Preview"
+            onPress={() => {
+                this.setState({previewMode: !this.state.previewMode})}}
+            buttonStyle={{marginBottom: 10, marginTop: 10}}/>
       </ScrollView>
     )
   }

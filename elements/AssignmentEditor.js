@@ -16,7 +16,8 @@ class AssignmentEditor extends React.Component {
         points: 0,
         className: "Assignment"
       },
-      lessonId: 1
+      lessonId: 1,
+      previewMode: false
     },
     this.widgetService = WidgetService.instance()
   }
@@ -56,6 +57,8 @@ class AssignmentEditor extends React.Component {
   render() {
     return(
         <ScrollView style={{marginBottom:30}}>
+        {!this.state.previewMode &&
+        <ScrollView>
         <FormLabel>Title</FormLabel>
         <FormInput
             value={this.state.assignment.title}
@@ -86,7 +89,29 @@ class AssignmentEditor extends React.Component {
           Points are required
         </FormValidationMessage>
 
-        <Text h3>Preview</Text>
+        <View style={{paddingTop:10}}>
+        <Button	backgroundColor="green"
+                 color="white"
+                 title="Save"
+                 onPress={() => this.createAssignment()}/>
+        </View>
+        <View style={{paddingTop:10}}>
+        {this.state.assignmentId == null ?
+            <Button	backgroundColor="red"
+                 color="white"
+                 title="Cancel"
+                 onPress={() => this.props.navigation.goBack()}/>
+          : <Button backgroundColor="red"
+                 color="white"
+                 title="Delete"
+                 onPress={() => this.deleteAssignment()}/>
+        }
+        </View>
+        </ScrollView>
+        }
+
+        {this.state.previewMode &&
+        <ScrollView>
         <Text h4>{this.state.assignment.title}</Text>
         <Text>{this.state.assignment.description}</Text>
         <Text style={{alignSelf: 'flex-end'}}>{this.state.assignment.points} Pts</Text>
@@ -116,24 +141,13 @@ class AssignmentEditor extends React.Component {
                     numberOfLines={5}/>
         </View>
         </View>
-        <View style={{paddingTop:10}}>
-        <Button	backgroundColor="green"
-                 color="white"
-                 title="Save"
-                 onPress={() => this.createAssignment()}/>
-        </View>
-        <View style={{paddingTop:10, paddingBottom: 20}}>
-        {this.state.assignmentId == null ?
-            <Button	backgroundColor="red"
-                 color="white"
-                 title="Cancel"
-                 onPress={() => this.props.navigation.goBack()}/>
-          : <Button backgroundColor="red"
-                 color="white"
-                 title="Delete"
-                 onPress={() => this.deleteAssignment()}/>
+        </ScrollView>
         }
-        </View>
+
+        <Button title="Preview"
+            onPress={() => {
+                this.setState({previewMode: !this.state.previewMode})}}
+            buttonStyle={{marginBottom: 10, marginTop: 10}}/>
       </ScrollView>
     )
   }

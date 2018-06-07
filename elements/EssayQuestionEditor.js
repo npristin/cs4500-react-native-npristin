@@ -16,7 +16,8 @@ class EssayQuestionEditor extends React.Component {
           description: '',
           points: 0
         },
-        examId: 1
+        examId: 1,
+        previewMode: false
     }
 
     this.essayQuestionService = EssayQuestionService.instance();
@@ -58,6 +59,8 @@ class EssayQuestionEditor extends React.Component {
   render() {
     return(
       <ScrollView>
+      {!this.state.previewMode &&
+        <ScrollView>
         <FormLabel>Title</FormLabel>
         <FormInput
             value={this.state.question.title}
@@ -88,22 +91,13 @@ class EssayQuestionEditor extends React.Component {
           Points are required
         </FormValidationMessage>
 
-        <Text h3>Preview</Text>
-        <Text h2>{this.state.question.title}</Text>
-        <Text>{this.state.question.description}</Text>
-        <Text style={{alignSelf: 'flex-end'}}>{this.state.question.points} Pts</Text>
-        <View style={styles.inputView}>
-            <TextInput
-                multiline={true}
-                numberOfLines={10}/>
-        </View>
         <View style={{paddingTop:10}}>
         <Button	backgroundColor="green"
                  color="white"
                  title="Save"
                  onPress={() => this.createEssayQuestion()}/>
         </View>
-        <View style={{paddingTop:10, paddingBottom: 20}}>
+        <View style={{paddingTop:10}}>
         {this.state.questionId == null ?
             <Button	backgroundColor="red"
                  color="white"
@@ -115,6 +109,27 @@ class EssayQuestionEditor extends React.Component {
                  onPress={() => this.deleteEssayQuestion()}/>
         }
         </View>
+        </ScrollView>
+        }
+
+        {this.state.previewMode &&
+        <ScrollView>
+        <Text h3>Preview</Text>
+        <Text h2>{this.state.question.title}</Text>
+        <Text>{this.state.question.description}</Text>
+        <Text style={{alignSelf: 'flex-end'}}>{this.state.question.points} Pts</Text>
+        <View style={styles.inputView}>
+            <TextInput
+                multiline={true}
+                numberOfLines={10}/>
+        </View>
+        </ScrollView>
+        }
+
+        <Button title="Preview"
+            onPress={() => {
+                this.setState({previewMode: !this.state.previewMode})}}
+            buttonStyle={{marginBottom: 10, marginTop: 10}}/>
       </ScrollView>
     )
   }
