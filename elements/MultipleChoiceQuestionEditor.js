@@ -105,12 +105,12 @@ class MultipleChoiceQuestionEditor extends React.Component {
           Points are required
         </FormValidationMessage>
 
-        <FormLabel>Add Option</FormLabel>
+        <FormLabel>Add Choice</FormLabel>
         <FormInput onChangeText={
           text => this.updateForm({option: text})
         }/>
         <FormValidationMessage>
-          Add at least two options
+          Add at least two choices
         </FormValidationMessage>
 
         <View style={{paddingTop:10}}>
@@ -133,14 +133,14 @@ class MultipleChoiceQuestionEditor extends React.Component {
                 (option, index) => (
                     index == this.state.question.correctOption ?
                         <ListItem
-                            style={{ backgroundColor: 'rgb(204, 206, 209)'}}
-                            leftIcon={{name: "check-circle"}}
+                            containerStyle={{backgroundColor: "lightgrey"}}
+                            leftIcon={{name: "check-circle", size: 15, color: "black"}}
                             rightIcon={{name: "cancel", color:"red"}}
                             onPressRightIcon={() => this.deleteMultipleChoiceOption(option)}
                             key={index}
                             title={option}/>
                         : <ListItem
-                            leftIcon={{name: "add-circle-outline"}}
+                            leftIcon={{name: "add-circle-outline", size: 15}}
                             rightIcon={{name: "cancel", color:"red"}}
                             onPressRightIcon={() => this.deleteMultipleChoiceOption(option)}
                             key={index}
