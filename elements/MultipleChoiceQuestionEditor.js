@@ -57,6 +57,18 @@ class MultipleChoiceQuestionEditor extends React.Component {
         .then(this.props.navigation.navigate('QuestionList', {questions: []}))
   }
 
+  deleteMultipleChoiceOption(option) {
+    var optionsArr = this.state.question.options.split(",");
+    var fst = optionsArr.splice(0,1).join("");
+    if (fst == option) {
+        var rest = optionsArr.join(",");
+        this.updateForm({question: {...this.state.question, options: rest}})
+    } else {
+        var options = this.state.question.options.replace(","+option, '')
+        this.updateForm({question: {...this.state.question, options: options}})
+    }
+  }
+
   render() {
     return(
       <ScrollView>
@@ -121,22 +133,19 @@ class MultipleChoiceQuestionEditor extends React.Component {
                             style={{ backgroundColor: 'rgb(204, 206, 209)'}}
                             leftIcon={{name: "check-circle"}}
                             rightIcon={{name: "cancel", color:"red"}}
-                            onPressRightIcon={() => alert("hi!")}
+                            onPressRightIcon={() => this.deleteMultipleChoiceOption(option)}
                             key={index}
                             title={option}/>
                         : <ListItem
                             leftIcon={{name: "add-circle-outline"}}
                             rightIcon={{name: "cancel", color:"red"}}
+                            onPressRightIcon={() => this.deleteMultipleChoiceOption(option)}
                             key={index}
                             title={option}
                             onPress={() => this.updateForm(
                                 {question: {...this.state.question, correctOption: index}})}/>
             )) : null
         }
-
-        <FormInput onChangeText={
-          text => this.updateForm({question: {options: text}})
-        }/>
 
         <Text h3>Preview</Text>
         <Text h2>{this.state.question.title}</Text>
