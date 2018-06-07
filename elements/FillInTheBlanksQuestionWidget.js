@@ -135,12 +135,8 @@ class FillInTheBlanksQuestionWidget extends React.Component {
         <Text style={{fontWeight: "bold"}} h4>{this.state.question.title}</Text>
         <Text h5>{this.state.question.description}</Text>
         <Text style={{alignSelf: 'flex-end', fontWeight: "bold"}}>{this.state.question.points} Pts</Text>
-        <View style={{paddingBottom: 40}}>
-        <TextInput
-            multiline={true}
-            numberOfLines={20}
-            value={this.state.question.variables.replace(/(\[).+?(\])/g,
-                        React.createElement("TextInput"))}/>
+        <View style={{paddingTop: 15}}>
+        {renderFillInBlanks(this.state.question.variables)}
         </View>
         </ScrollView>
         }
@@ -155,6 +151,37 @@ class FillInTheBlanksQuestionWidget extends React.Component {
 }
 
 export default FillInTheBlanksQuestionWidget
+
+const renderFillInBlanks = variables => {
+    let vars = variables.split(/[[\]]{1,2}/);
+    vars.length--;
+
+    let blanksResult = [];
+    for (var i = 0; i < vars.length - 1; i += 2) {
+        blanksResult[i / 2] =
+            <View key={i / 2} style={{flexDirection: 'row', justifyContent: 'center'}}>
+                <Text h5
+                      className="match"
+                      key={i}>
+                    {vars[i]}
+                </Text>
+                <TextInput
+                    style={{
+                        fontSize: 15,
+                        flex: 1,
+                        borderColor: 'gray',
+                        borderWidth: 1,
+                        width: 50,
+                        height: 30,
+                        backgroundColor: "white",
+                    }}
+                    className="match" key={i + 1}/>
+            </View>
+    }
+    return (
+        blanksResult
+    );
+}
 
 const styles = StyleSheet.create({
    inputView: {
