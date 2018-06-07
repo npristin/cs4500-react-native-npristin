@@ -114,9 +114,9 @@ class EssayQuestionWidget extends React.Component {
 
         {this.state.previewMode &&
         <ScrollView>
-        <Text h2>{this.state.question.title}</Text>
-        <Text>{this.state.question.description}</Text>
-        <Text style={{alignSelf: 'flex-end'}}>{this.state.question.points} Pts</Text>
+        <Text style={{fontWeight: "bold"}} h4>{this.state.question.title}</Text>
+        <Text h5>{this.state.question.description}</Text>
+        <Text style={{alignSelf: 'flex-end', fontWeight: "bold"}}>{this.state.question.points} Pts</Text>
         <View style={styles.inputView}>
             <TextInput
                 multiline={true}

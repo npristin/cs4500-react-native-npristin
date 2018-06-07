@@ -87,7 +87,7 @@ class WidgetList extends Component {
         }}>
         <View style={{marginTop: 22}}>
           <View>
-              <Text h2>Add Exam</Text>
+              <Text style={{ontWeight: "bold", paddingLeft: 15}} h4>Add Exam</Text>
               <FormLabel>Title</FormLabel>
               <FormInput onChangeText={
                 text => this.updateTitle(text)
