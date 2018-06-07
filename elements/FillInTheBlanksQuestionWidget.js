@@ -60,7 +60,7 @@ class FillInTheBlanksQuestionWidget extends React.Component {
     const texts = this.state.question.variables.replace(/(\[).+?(\])/g, "[]");
 
     return(
-      <ScrollView>
+      <ScrollView style={{padding: 15, marginBottom: 30}}>
       {!this.state.previewMode &&
         <ScrollView>
         <FormLabel>Title</FormLabel>
@@ -146,7 +146,7 @@ class FillInTheBlanksQuestionWidget extends React.Component {
         <Button title="Preview"
             onPress={() => {
                 this.setState({previewMode: !this.state.previewMode})}}
-            buttonStyle={{marginBottom: 10, marginTop: 10}}/>
+            buttonStyle={{marginTop: 10}}/>
       </ScrollView>
     )
   }

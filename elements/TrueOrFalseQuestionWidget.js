@@ -59,7 +59,7 @@ class TrueOrFalseQuestionWidget extends React.Component {
 
   render() {
     return(
-      <ScrollView>
+      <ScrollView style={{padding: 15, marginBottom: 30}}>
       {!this.state.previewMode &&
         <ScrollView>
         <FormLabel>Title</FormLabel>
@@ -127,7 +127,7 @@ class TrueOrFalseQuestionWidget extends React.Component {
         <Button title="Preview"
             onPress={() => {
                 this.setState({previewMode: !this.state.previewMode})}}
-            buttonStyle={{marginBottom: 10, marginTop: 10}}/>
+            buttonStyle={{marginTop: 10}}/>
 
       </ScrollView>
     )

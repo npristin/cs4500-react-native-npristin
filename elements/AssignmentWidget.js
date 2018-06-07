@@ -56,7 +56,7 @@ class AssignmentWidget extends React.Component {
 
   render() {
     return(
-        <ScrollView style={{marginBottom:30}}>
+        <ScrollView style={{padding: 15, marginBottom: 30}}>
         {!this.state.previewMode &&
         <ScrollView>
         <FormLabel>Title</FormLabel>
@@ -147,7 +147,7 @@ class AssignmentWidget extends React.Component {
         <Button title="Preview"
             onPress={() => {
                 this.setState({previewMode: !this.state.previewMode})}}
-            buttonStyle={{marginBottom: 10, marginTop: 10}}/>
+            buttonStyle={{marginTop: 10}}/>
       </ScrollView>
     )
   }

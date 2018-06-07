@@ -44,6 +44,7 @@ class ExamWidget extends Component {
   render() {
     return(
       <ScrollView style={StyleSheet.absoluteFill}>
+      <ScrollView style={{padding: 15, marginBottom: 30}}>
       <Text h4>Add Exam Question</Text>
       {questions.map( (question, index) => (
         <ListItem
@@ -74,12 +75,13 @@ class ExamWidget extends Component {
             key={index}
             subtitle={question.description}
             title={question.title}/>))}
-      <View style={{paddingTop:10, paddingBottom: 15}}>
+      <View style={{paddingTop:10}}>
       <Button backgroundColor="red"
                color="white"
                title="Delete Exam"
                onPress={() => this.deleteExam()}/>
       </View>
+      </ScrollView>
       </ScrollView>
     )
   }
