@@ -5,7 +5,7 @@ import {FormLabel, FormInput, FormValidationMessage}
   from 'react-native-elements'
 import WidgetService from "../services/WidgetService";
 
-class AssignmentEditor extends React.Component {
+class AssignmentWidget extends React.Component {
   static navigationOptions = { title: "Assignment"}
   constructor(props) {
     super(props)
@@ -153,7 +153,7 @@ class AssignmentEditor extends React.Component {
   }
 }
 
-export default AssignmentEditor
+export default AssignmentWidget
 
 const styles = StyleSheet.create({
    inputView: {

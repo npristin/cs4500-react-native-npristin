@@ -4,7 +4,7 @@ import {Text, ListItem, Button} from 'react-native-elements'
 import WidgetService from "../services/WidgetService";
 import QuestionService from "../services/QuestionService"
 
-class QuestionList extends Component {
+class ExamWidget extends Component {
   static navigationOptions = {title: 'Questions'}
   constructor(props) {
     super(props)
@@ -60,16 +60,16 @@ class QuestionList extends Component {
             onPress={() => {
               if(question.type === "truefalse")
                 this.props.navigation
-                  .navigate("TrueFalseQuestionEditor", {questionId: question.id, examId: this.state.examId})
+                  .navigate("TrueOrFalseQuestionWidget", {questionId: question.id, examId: this.state.examId})
               if(question.type === "choice")
                 this.props.navigation
-                  .navigate("MultipleChoiceQuestionEditor", {questionId: question.id, examId: this.state.examId})
+                  .navigate("MultipleChoiceQuestionWidget", {questionId: question.id, examId: this.state.examId})
               if(question.type === "essay")
                 this.props.navigation
-                  .navigate("EssayQuestionEditor", {questionId: question.id, examId: this.state.examId})
+                  .navigate("EssayQuestionWidget", {questionId: question.id, examId: this.state.examId})
               if(question.type === "blanks")
                 this.props.navigation
-                  .navigate("FillInTheBlanksQuestionEditor", {questionId: question.id, examId: this.state.examId})
+                  .navigate("FillInTheBlanksQuestionWidget", {questionId: question.id, examId: this.state.examId})
             }}
             key={index}
             subtitle={question.description}
@@ -84,18 +84,18 @@ class QuestionList extends Component {
     )
   }
 }
-export default QuestionList
+export default ExamWidget
 
 const questions = [
   {	title: 'Multiple choice',
     icon: 'list',
-    nav: 'MultipleChoiceQuestionEditor'},
+    nav: 'MultipleChoiceQuestionWidget'},
   {	title: 'Fill-in the blanks',
     icon: 'code',
-    nav: 'FillInTheBlanksQuestionEditor'},
+    nav: 'FillInTheBlanksQuestionWidget'},
   {	title: 'True or false',
     icon: 'check',
-    nav: 'TrueFalseQuestionEditor'},
+    nav: 'TrueOrFalseQuestionWidget'},
   {	title: 'Essay',
     icon: 'subject',
-    nav: 'EssayQuestionEditor'}]
+    nav: 'EssayQuestionWidget'}]

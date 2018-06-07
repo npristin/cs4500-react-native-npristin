@@ -1,18 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar, ScrollView } from 'react-native';
 import FixedHeader from './elements/FixedHeader'
-import TrueFalseQuestionEditor from './elements/TrueFalseQuestionEditor'
-import MultipleChoiceQuestionEditor from './elements/MultipleChoiceQuestionEditor'
-import EssayQuestionEditor from './elements/EssayQuestionEditor'
-import AssignmentEditor from './elements/AssignmentEditor'
+import TrueOrFalseQuestionWidget from './elements/TrueOrFalseQuestionWidget'
+import MultipleChoiceQuestionWidget from './elements/MultipleChoiceQuestionWidget'
+import EssayQuestionWidget from './elements/EssayQuestionWidget'
+import AssignmentWidget from './elements/AssignmentWidget'
 import { createStackNavigator } from 'react-navigation'
 import {Button} from 'react-native-elements'
 import CourseList from './components/CourseList'
 import ModuleList from './components/ModuleList'
 import LessonList from './components/LessonList'
 import WidgetList from './components/WidgetList'
-import QuestionList from './components/QuestionList'
-import FillInTheBlanksQuestionEditor from './elements/FillInTheBlanksQuestionEditor'
+import ExamWidget from './components/ExamWidget'
+import FillInTheBlanksQuestionWidget from './elements/FillInTheBlanksQuestionWidget'
 
 class Home extends React.Component {
   static navigationOptions = {
@@ -45,12 +45,12 @@ const App = createStackNavigator({
   ModuleList,
   LessonList,
   WidgetList,
-  QuestionList,
-  TrueFalseQuestionEditor,
-  MultipleChoiceQuestionEditor,
-  EssayQuestionEditor,
-  FillInTheBlanksQuestionEditor,
-  AssignmentEditor
+  ExamWidget,
+  TrueOrFalseQuestionWidget,
+  MultipleChoiceQuestionWidget,
+  EssayQuestionWidget,
+  FillInTheBlanksQuestionWidget,
+  AssignmentWidget
 });
 
 export default App;

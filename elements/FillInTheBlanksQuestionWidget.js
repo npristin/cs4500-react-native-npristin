@@ -5,7 +5,7 @@ import {FormLabel, FormInput, FormValidationMessage}
   from 'react-native-elements'
 import BlanksQuestionService from "../services/BlanksQuestionService"
 
-class FillInTheBlanksQuestionEditor extends React.Component {
+class FillInTheBlanksQuestionWidget extends React.Component {
   static navigationOptions = { title: "Fill In The Blanks"}
   constructor(props) {
     super(props)
@@ -47,13 +47,13 @@ class FillInTheBlanksQuestionEditor extends React.Component {
       this.blanksQuestionService
         .createBlanksQuestion(this.state.examId, this.state.question)
         .then(response => console.log(response))
-        .then(this.props.navigation.navigate('QuestionList', {questions: []}))
+        .then(this.props.navigation.navigate('ExamWidget', {questions: []}))
   }
 
   deleteFillInTheBlanks() {
       this.blanksQuestionService
         .deleteBlanksQuestion(this.state.questionId)
-        .then(this.props.navigation.navigate('QuestionList', {questions: []}))
+        .then(this.props.navigation.navigate('ExamWidget', {questions: []}))
   }
 
   render() {
@@ -152,7 +152,7 @@ class FillInTheBlanksQuestionEditor extends React.Component {
   }
 }
 
-export default FillInTheBlanksQuestionEditor
+export default FillInTheBlanksQuestionWidget
 
 const styles = StyleSheet.create({
    inputView: {

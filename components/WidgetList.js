@@ -126,7 +126,7 @@ class WidgetList extends Component {
       <View style={{paddingTop:10}}>
       <Button title="Add Assignment"
         onPress={() => this.props.navigation
-                            .navigate("AssignmentEditor", {lessonId: this.state.lessonId})} />
+                            .navigate("AssignmentWidget", {lessonId: this.state.lessonId})} />
       </View>
       <View style={{paddingTop:10}}>
       <Text h3>Assignments</Text>
@@ -135,7 +135,7 @@ class WidgetList extends Component {
            <ListItem
              onPress={() =>
                 this.props.navigation
-                    .navigate("AssignmentEditor", {lessonId: this.state.lessonId, assignmentId: widget.id})}
+                    .navigate("AssignmentWidget", {lessonId: this.state.lessonId, assignmentId: widget.id})}
              key={index}
              subtitle={widget.description}
              title={widget.title}/>))
@@ -148,7 +148,7 @@ class WidgetList extends Component {
              <ListItem
                onPress={() =>
                 this.props.navigation
-                    .navigate("QuestionList", {examId: widget.id})}
+                    .navigate("ExamWidget", {examId: widget.id})}
                key={index}
                subtitle={widget.description}
                title={widget.title}/>))

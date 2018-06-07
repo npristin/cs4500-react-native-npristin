@@ -5,7 +5,7 @@ import {FormLabel, FormInput, FormValidationMessage} from 'react-native-elements
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ChoiceQuestionService from "../services/ChoiceQuestionService"
 
-class MultipleChoiceQuestionEditor extends React.Component {
+class MultipleChoiceQuestionWidget extends React.Component {
   static navigationOptions = { title: "Multiple Choice"}
   constructor(props) {
     super(props)
@@ -49,13 +49,13 @@ class MultipleChoiceQuestionEditor extends React.Component {
     console.log(this.state.question)
     this.choiceQuestionService
         .createMultipleChoiceQuestion(this.state.examId, this.state.question)
-        .then(this.props.navigation.navigate('QuestionList', {questions: []}))
+        .then(this.props.navigation.navigate('ExamWidget', {questions: []}))
   }
 
   deleteMultipleChoiceQuestion() {
     this.choiceQuestionService
         .deleteMultipleChoiceQuestion(this.state.questionId)
-        .then(this.props.navigation.navigate('QuestionList', {questions: []}))
+        .then(this.props.navigation.navigate('ExamWidget', {questions: []}))
   }
 
   deleteMultipleChoiceOption(option) {
@@ -197,7 +197,7 @@ class MultipleChoiceQuestionEditor extends React.Component {
   }
 }
 
-export default MultipleChoiceQuestionEditor
+export default MultipleChoiceQuestionWidget
 
 const styles = StyleSheet.create({
   correctOption: { backgroundColor: 'blue'},

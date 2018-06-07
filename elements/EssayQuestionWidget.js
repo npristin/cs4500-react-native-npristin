@@ -1,60 +1,59 @@
 import React from 'react'
-import {View, ScrollView} from 'react-native'
+import {ScrollView, View, TextInput, StyleSheet} from 'react-native'
 import {Text, Button, CheckBox} from 'react-native-elements'
 import {FormLabel, FormInput, FormValidationMessage}
   from 'react-native-elements'
-import TrueFalseQuestionService from "../services/TrueFalseQuestionService"
+import EssayQuestionService from "../services/EssayQuestionService"
 
-class TrueFalseQuestionEditor extends React.Component {
-  static navigationOptions = { title: "True False"}
+
+class EssayQuestionWidget extends React.Component {
+  static navigationOptions = { title: "Essay"}
   constructor(props) {
     super(props)
     this.state = {
         question: {
           title: '',
           description: '',
-          points: 0,
-          isTrue: true
-      },
-      examId: 1,
-      previewMode: false
+          points: 0
+        },
+        examId: 1,
+        previewMode: false
     }
-    this.trueFalseQuestionService = TrueFalseQuestionService.instance();
+
+    this.essayQuestionService = EssayQuestionService.instance();
   }
-
   componentDidMount() {
-      const {navigation} = this.props;
-      const examId = navigation.getParam("examId")
-      const questionId = navigation.getParam("questionId")
-      this.setState({examId: examId})
-      this.setState({questionId: questionId})
-      console.log(this.state.examId)
-      console.log(questionId)
+    const {navigation} = this.props;
+    const examId = navigation.getParam("examId")
+    const questionId = navigation.getParam("questionId")
+    this.setState({examId: examId})
+    this.setState({questionId: questionId})
+    console.log(this.state.examId)
+    console.log(questionId)
 
-      if (questionId != null) {
-          this.trueFalseQuestionService
-            .findTrueFalseQuestionById(questionId)
+    if (questionId != null) {
+        this.essayQuestionService
+            .findEssayById(questionId)
             .then(question => this.setState({question: question}))
-      }
-   }
+    }
+  }
 
   updateForm(newState) {
     this.setState(newState)
   }
 
-  createTrueFalseQuestion() {
-      console.log("creating true false question")
-      console.log(this.state.question)
-      this.trueFalseQuestionService
-        .createTrueFalseQuestion(this.state.examId, this.state.question)
-        .then(response => console.log(response))
-        .then(this.props.navigation.navigate('QuestionList', {questions: []}))
+  createEssayQuestion() {
+    console.log("creating essay question")
+    console.log(this.state.question)
+    this.essayQuestionService
+        .createEssayQuestion(this.state.examId, this.state.question)
+        .then(this.props.navigation.navigate('ExamWidget', {questions: []}))
   }
 
-  deleteTrueFalseQuestion() {
-      this.trueFalseQuestionService
-        .deleteTrueFalseQuestion(this.state.questionId)
-        .then(this.props.navigation.navigate('QuestionList', {questions: []}))
+  deleteEssayQuestion() {
+      this.essayQuestionService
+        .deleteEssayQuestion(this.state.questionId)
+        .then(this.props.navigation.navigate('ExamWidget', {questions: []}))
   }
 
   render() {
@@ -92,15 +91,13 @@ class TrueFalseQuestionEditor extends React.Component {
           Points are required
         </FormValidationMessage>
 
-        <CheckBox onPress={() => this.updateForm({question: {...this.state.question, isTrue: !this.state.question.isTrue}})}
-                  checked={this.state.question.isTrue} title='The answer is true'/>
         <View style={{paddingTop:10}}>
         <Button	backgroundColor="green"
                  color="white"
                  title="Save"
-                 onPress={() => this.createTrueFalseQuestion()}/>
+                 onPress={() => this.createEssayQuestion()}/>
         </View>
-         <View style={{paddingTop:10}}>
+        <View style={{paddingTop:10}}>
         {this.state.questionId == null ?
             <Button	backgroundColor="red"
                  color="white"
@@ -109,7 +106,7 @@ class TrueFalseQuestionEditor extends React.Component {
           : <Button backgroundColor="red"
                  color="white"
                  title="Delete"
-                 onPress={() => this.deleteTrueFalseQuestion()}/>
+                 onPress={() => this.deleteEssayQuestion()}/>
         }
         </View>
         </ScrollView>
@@ -117,21 +114,32 @@ class TrueFalseQuestionEditor extends React.Component {
 
         {this.state.previewMode &&
         <ScrollView>
+        <Text h3>Preview</Text>
         <Text h2>{this.state.question.title}</Text>
         <Text>{this.state.question.description}</Text>
-        <Text style={{alignSelf: 'flex-end'}}>{this.state.question.points}</Text>
-        <CheckBox title='True'/>
-
+        <Text style={{alignSelf: 'flex-end'}}>{this.state.question.points} Pts</Text>
+        <View style={styles.inputView}>
+            <TextInput
+                multiline={true}
+                numberOfLines={10}/>
+        </View>
         </ScrollView>
         }
+
         <Button title="Preview"
             onPress={() => {
                 this.setState({previewMode: !this.state.previewMode})}}
             buttonStyle={{marginBottom: 10, marginTop: 10}}/>
-
       </ScrollView>
     )
   }
 }
 
-export default TrueFalseQuestionEditor
+export default EssayQuestionWidget
+
+const styles = StyleSheet.create({
+   inputView: {
+     backgroundColor: 'white',
+     height: 100
+   }
+});
