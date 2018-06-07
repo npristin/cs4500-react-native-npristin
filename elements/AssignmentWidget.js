@@ -112,11 +112,11 @@ class AssignmentWidget extends React.Component {
 
         {this.state.previewMode &&
         <ScrollView>
-        <Text h4>{this.state.assignment.title}</Text>
+        <Text style={{fontWeight: "bold"}} h4>{this.state.assignment.title}</Text>
         <Text>{this.state.assignment.description}</Text>
-        <Text style={{alignSelf: 'flex-end'}}>{this.state.assignment.points} Pts</Text>
+        <Text style={{alignSelf: 'flex-end', fontWeight: "bold"}}>{this.state.assignment.points} Pts</Text>
 
-        <Text h5>Essay Answer</Text>
+        <Text style={{fontWeight: "bold"}} h5>Essay Answer</Text>
         <View style={styles.inputView}>
             <TextInput
                 style={styles.input}
@@ -124,7 +124,7 @@ class AssignmentWidget extends React.Component {
                 numberOfLines={10}/>
         </View>
         <View style={{paddingTop:15}}>
-        <Text h5>Upload a file</Text>
+        <Text style={{fontWeight: "bold"}} h5>Upload a file</Text>
         <View style={{backgroundColor: 'white'}}>
             <TextInput
                 style={styles.input}
@@ -133,7 +133,7 @@ class AssignmentWidget extends React.Component {
         </View>
         </View>
         <View style={{paddingTop:15}}>
-        <Text h5>Submit a link</Text>
+        <Text style={{fontWeight: "bold"}} h5>Submit a link</Text>
             <View style={{backgroundColor: 'white'}}>
                 <TextInput
                     style={styles.input}
