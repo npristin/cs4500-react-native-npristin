@@ -60,92 +60,92 @@ class FillInTheBlanksQuestionWidget extends React.Component {
     const texts = this.state.question.variables.replace(/(\[).+?(\])/g, "[]");
 
     return(
-    <ScrollView style={StyleSheet.absoluteFill}>
-      <ScrollView style={{padding: 15, marginBottom: 30}}>
-      {!this.state.previewMode &&
-        <ScrollView>
-        <FormLabel>Title</FormLabel>
-        <FormInput
-            value={this.state.question.title}
-            onChangeText={
-                text => this.updateForm({question: {...this.state.question, title: text }})
-        }/>
-        <FormValidationMessage>
-          Title is required
-        </FormValidationMessage>
+        <ScrollView style={StyleSheet.absoluteFill}>
+          <ScrollView style={{padding: 15, marginBottom: 30}}>
+              {!this.state.previewMode &&
+                <ScrollView>
+                <FormLabel>Title</FormLabel>
+                <FormInput
+                    value={this.state.question.title}
+                    onChangeText={
+                        text => this.updateForm({question: {...this.state.question, title: text }})
+                }/>
+                <FormValidationMessage>
+                  Title is required
+                </FormValidationMessage>
 
-        <FormLabel>Description</FormLabel>
-        <FormInput
-            value={this.state.question.description}
-            onChangeText={
-                text => this.updateForm({question: {...this.state.question, description: text}})
-        }/>
-        <FormValidationMessage>
-          Description is required
-        </FormValidationMessage>
+                <FormLabel>Description</FormLabel>
+                <FormInput
+                    value={this.state.question.description}
+                    onChangeText={
+                        text => this.updateForm({question: {...this.state.question, description: text}})
+                }/>
+                <FormValidationMessage>
+                  Description is required
+                </FormValidationMessage>
 
-        <FormLabel>Points</FormLabel>
-        <FormInput
-            value={this.state.question.points.toString()}
-            onChangeText={
-                text => this.updateForm({question: {...this.state.question, points: text}})
-        }/>
-        <FormValidationMessage>
-          Points are required
-        </FormValidationMessage>
+                <FormLabel>Points</FormLabel>
+                <FormInput
+                    value={this.state.question.points.toString()}
+                    onChangeText={
+                        text => this.updateForm({question: {...this.state.question, points: text}})
+                }/>
+                <FormValidationMessage>
+                  Points are required
+                </FormValidationMessage>
 
-        <FormLabel>Question Text</FormLabel>
-        <View style={{backgroundColor: 'white', height: 100}}>
-        <TextInput
-            returnKeyType='none'
-            multiline={true}
-            style={styles.input}
-            value={this.state.question.variables}
-            onChangeText={
-                text => this.updateForm({question: {...this.state.question, variables: text}})
-        }/>
-        </View>
-        <FormValidationMessage>
-          Description is required
-        </FormValidationMessage>
+                <FormLabel>Question Text</FormLabel>
+                <View style={{backgroundColor: 'white', height: 100}}>
+                    <TextInput
+                        returnKeyType='none'
+                        multiline={true}
+                        style={styles.input}
+                        value={this.state.question.variables}
+                        onChangeText={
+                            text => this.updateForm({question: {...this.state.question, variables: text}})
+                    }/>
+                </View>
+                <FormValidationMessage>
+                  Description is required
+                </FormValidationMessage>
 
-        <View style={{paddingTop:10}}>
-        <Button	backgroundColor="green"
-                 color="white"
-                 title="Save"
-                 onPress={() => this.createFillInTheBlanks()} />
-        </View>
-        <View style={{paddingTop:10}}>
-        {this.state.questionId == null ?
-            <Button	backgroundColor="red"
-                 color="white"
-                 title="Cancel"
-                 onPress={() => this.props.navigation.goBack()}/>
-          : <Button backgroundColor="red"
-                 color="white"
-                 title="Delete"
-                 onPress={() => this.deleteFillInTheBlanks()}/>
-        }
-        </View>
+                <View style={{paddingTop:10}}>
+                    <Button	backgroundColor="green"
+                             color="white"
+                             title="Save"
+                             onPress={() => this.createFillInTheBlanks()} />
+                </View>
+                <View style={{paddingTop:10}}>
+                {this.state.questionId == null ?
+                    <Button	backgroundColor="red"
+                         color="white"
+                         title="Cancel"
+                         onPress={() => this.props.navigation.goBack()}/>
+                  : <Button backgroundColor="red"
+                         color="white"
+                         title="Delete"
+                         onPress={() => this.deleteFillInTheBlanks()}/>
+                }
+                </View>
+              </ScrollView>
+              }
+
+              {this.state.previewMode &&
+                <ScrollView>
+                    <Text style={{fontWeight: "bold"}} h4>{this.state.question.title}</Text>
+                    <Text h5>{this.state.question.description}</Text>
+                    <Text style={{alignSelf: 'flex-end', fontWeight: "bold"}}>{this.state.question.points} Pts</Text>
+                    <View style={{paddingTop: 15}}>
+                        {renderFillInBlanks(this.state.question.variables)}
+                    </View>
+                </ScrollView>
+              }
+            <Button title="Preview"
+                onPress={() => {
+                    this.setState({previewMode: !this.state.previewMode})}}
+                buttonStyle={{marginTop: 10}}/>
+          </ScrollView>
         </ScrollView>
-        }
-
-        {this.state.previewMode &&
-        <ScrollView>
-        <Text style={{fontWeight: "bold"}} h4>{this.state.question.title}</Text>
-        <Text h5>{this.state.question.description}</Text>
-        <Text style={{alignSelf: 'flex-end', fontWeight: "bold"}}>{this.state.question.points} Pts</Text>
-        <View style={{paddingTop: 15}}>
-        {renderFillInBlanks(this.state.question.variables)}
-        </View>
-        </ScrollView>
-        }
-        <Button title="Preview"
-            onPress={() => {
-                this.setState({previewMode: !this.state.previewMode})}}
-            buttonStyle={{marginTop: 10}}/>
-      </ScrollView>
-      </ScrollView>
     )
   }
 }

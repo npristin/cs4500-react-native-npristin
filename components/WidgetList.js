@@ -78,82 +78,82 @@ class WidgetList extends Component {
     return(
       <ScrollView style={{padding: 15, marginBottom: 30}}>
 
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={this.state.modalVisible}
-        onRequestClose={() => {
-          alert('Modal has been closed.');
-        }}>
-        <View style={{marginTop: 22}}>
-          <View>
-              <Text style={{ontWeight: "bold", paddingLeft: 15}} h4>Add Exam</Text>
-              <FormLabel>Title</FormLabel>
-              <FormInput onChangeText={
-                text => this.updateTitle(text)
-              }/>
-              <FormValidationMessage>
-                Title is required
-              </FormValidationMessage>
+          <Modal
+            animationType="slide"
+            transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              alert('Modal has been closed.');
+            }}>
+            <View style={{marginTop: 22}}>
+              <View>
+                  <Text style={{fontWeight: "bold", paddingLeft: 15}} h4>Add Exam</Text>
+                  <FormLabel>Title</FormLabel>
+                  <FormInput onChangeText={
+                    text => this.updateTitle(text)
+                  }/>
+                  <FormValidationMessage>
+                    Title is required
+                  </FormValidationMessage>
 
-              <FormLabel>Description</FormLabel>
-              <FormInput onChangeText={
-                text => this.updateDescription(text)
-              }/>
-              <FormValidationMessage>
-                Description is required
-              </FormValidationMessage>
+                  <FormLabel>Description</FormLabel>
+                  <FormInput onChangeText={
+                    text => this.updateDescription(text)
+                  }/>
+                  <FormValidationMessage>
+                    Description is required
+                  </FormValidationMessage>
 
-              <View style={{paddingTop:10}}>
-              <Button title="Save Exam"
-                    backgroundColor="green"
-                    color="white"
-                    onPress={() => this.createExam()} />
+                  <View style={{paddingTop:10}}>
+                  <Button title="Save Exam"
+                        backgroundColor="green"
+                        color="white"
+                        onPress={() => this.createExam()} />
+                  </View>
+                  <View style={{paddingTop:10}}>
+                  <Button title="Cancel"
+                          backgroundColor="red"
+                          color="white"
+                          onPress={() => this.setModalVisible(!this.state.modalVisible)} />
+                  </View>
               </View>
-              <View style={{paddingTop:10}}>
-              <Button title="Cancel"
-                      backgroundColor="red"
-                      color="white"
-                      onPress={() => this.setModalVisible(!this.state.modalVisible)} />
-              </View>
+            </View>
+          </Modal>
+
+          <Button title="Add Exam"
+                          onPress={() => this.setModalVisible(!this.state.modalVisible)} />
+
+          <View style={{paddingTop:10}}>
+          <Button title="Add Assignment"
+            onPress={() => this.props.navigation
+                                .navigate("AssignmentWidget", {lessonId: this.state.lessonId})} />
           </View>
-        </View>
-      </Modal>
-
-      <Button title="Add Exam"
-                      onPress={() => this.setModalVisible(!this.state.modalVisible)} />
-
-      <View style={{paddingTop:10}}>
-      <Button title="Add Assignment"
-        onPress={() => this.props.navigation
-                            .navigate("AssignmentWidget", {lessonId: this.state.lessonId})} />
-      </View>
-      <View style={{paddingTop:10}}>
-      <Text h3>Assignments</Text>
-      {this.state.widgets.filter(widget => widget.className === "Assignment").map
-        ((widget, index) => (
-           <ListItem
-             onPress={() =>
-                this.props.navigation
-                    .navigate("AssignmentWidget", {lessonId: this.state.lessonId, assignmentId: widget.id})}
-             key={index}
-             subtitle={widget.description}
-             title={widget.title}/>))
-      }
-      </View>
-      <View style={{paddingTop:10}}>
-      <Text h3>Exams</Text>
-      {this.state.widgets.filter(widget => widget.className === "Exam").map
-          ((widget, index) => (
-             <ListItem
-               onPress={() =>
-                this.props.navigation
-                    .navigate("ExamWidget", {examId: widget.id})}
-               key={index}
-               subtitle={widget.description}
-               title={widget.title}/>))
-        }
-      </View>
+          <View style={{paddingTop:10}}>
+              <Text h3>Assignments</Text>
+              {this.state.widgets.filter(widget => widget.className === "Assignment").map
+                ((widget, index) => (
+                   <ListItem
+                     onPress={() =>
+                        this.props.navigation
+                            .navigate("AssignmentWidget", {lessonId: this.state.lessonId, assignmentId: widget.id})}
+                     key={index}
+                     subtitle={widget.description}
+                     title={widget.title}/>))
+              }
+          </View>
+          <View style={{paddingTop:10}}>
+              <Text h3>Exams</Text>
+              {this.state.widgets.filter(widget => widget.className === "Exam").map
+                  ((widget, index) => (
+                     <ListItem
+                       onPress={() =>
+                        this.props.navigation
+                            .navigate("ExamWidget", {examId: widget.id})}
+                       key={index}
+                       subtitle={widget.description}
+                       title={widget.title}/>))
+              }
+          </View>
       </ScrollView>
     )
   }

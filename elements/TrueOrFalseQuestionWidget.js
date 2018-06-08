@@ -60,70 +60,70 @@ class TrueOrFalseQuestionWidget extends React.Component {
   render() {
     return(
       <ScrollView style={{padding: 15, marginBottom: 30}}>
-      {!this.state.previewMode &&
-        <ScrollView>
-        <FormLabel>Title</FormLabel>
-        <FormInput
-            value={this.state.question.title}
-            onChangeText={
-                text => this.updateForm({question: {...this.state.question, title: text }})
-        }/>
-        <FormValidationMessage>
-          Title is required
-        </FormValidationMessage>
+          {!this.state.previewMode &&
+            <ScrollView>
+                <FormLabel>Title</FormLabel>
+                <FormInput
+                    value={this.state.question.title}
+                    onChangeText={
+                        text => this.updateForm({question: {...this.state.question, title: text }})
+                }/>
+                <FormValidationMessage>
+                  Title is required
+                </FormValidationMessage>
 
-        <FormLabel>Description</FormLabel>
-        <FormInput
-            value={this.state.question.description}
-            onChangeText={
-                text => this.updateForm({question: {...this.state.question, description: text}})
-        }/>
-        <FormValidationMessage>
-          Description is required
-        </FormValidationMessage>
+                <FormLabel>Description</FormLabel>
+                <FormInput
+                    value={this.state.question.description}
+                    onChangeText={
+                        text => this.updateForm({question: {...this.state.question, description: text}})
+                }/>
+                <FormValidationMessage>
+                  Description is required
+                </FormValidationMessage>
 
-        <FormLabel>Points</FormLabel>
-        <FormInput
-            value={this.state.question.points.toString()}
-            onChangeText={
-                text => this.updateForm({question: {...this.state.question, points: text}})
-        }/>
-        <FormValidationMessage>
-          Points are required
-        </FormValidationMessage>
+                <FormLabel>Points</FormLabel>
+                <FormInput
+                    value={this.state.question.points.toString()}
+                    onChangeText={
+                        text => this.updateForm({question: {...this.state.question, points: text}})
+                }/>
+                <FormValidationMessage>
+                  Points are required
+                </FormValidationMessage>
 
-        <CheckBox onPress={() => this.updateForm({question: {...this.state.question, isTrue: !this.state.question.isTrue}})}
-                  checked={this.state.question.isTrue} title='The answer is true'/>
-        <View style={{paddingTop:10}}>
-        <Button	backgroundColor="green"
-                 color="white"
-                 title="Save"
-                 onPress={() => this.createTrueFalseQuestion()}/>
-        </View>
-         <View style={{paddingTop:10}}>
-        {this.state.questionId == null ?
-            <Button	backgroundColor="red"
-                 color="white"
-                 title="Cancel"
-                 onPress={() => this.props.navigation.goBack()}/>
-          : <Button backgroundColor="red"
-                 color="white"
-                 title="Delete"
-                 onPress={() => this.deleteTrueFalseQuestion()}/>
-        }
-        </View>
-        </ScrollView>
-        }
+                <CheckBox onPress={() => this.updateForm({question: {...this.state.question, isTrue: !this.state.question.isTrue}})}
+                          checked={this.state.question.isTrue} title='The answer is true'/>
+                <View style={{paddingTop:10}}>
+                    <Button	backgroundColor="green"
+                         color="white"
+                         title="Save"
+                         onPress={() => this.createTrueFalseQuestion()}/>
+                </View>
+                <View style={{paddingTop:10}}>
+                    {this.state.questionId == null ?
+                        <Button	backgroundColor="red"
+                             color="white"
+                             title="Cancel"
+                             onPress={() => this.props.navigation.goBack()}/>
+                      : <Button backgroundColor="red"
+                             color="white"
+                             title="Delete"
+                             onPress={() => this.deleteTrueFalseQuestion()}/>
+                    }
+                </View>
+            </ScrollView>
+          }
 
-        {this.state.previewMode &&
-        <ScrollView>
-        <Text style={{fontWeight: "bold"}} h4>{this.state.question.title}</Text>
-        <Text h5>{this.state.question.description}</Text>
-        <Text style={{alignSelf: 'flex-end', fontWeight: "bold"}}>{this.state.question.points} Pts</Text>
-        <CheckBox title='True'/>
+          {this.state.previewMode &&
+            <ScrollView>
+                <Text style={{fontWeight: "bold"}} h4>{this.state.question.title}</Text>
+                <Text h5>{this.state.question.description}</Text>
+                <Text style={{alignSelf: 'flex-end', fontWeight: "bold"}}>{this.state.question.points} Pts</Text>
+                <CheckBox title='True'/>
 
-        </ScrollView>
-        }
+            </ScrollView>
+          }
         <Button title="Preview"
             onPress={() => {
                 this.setState({previewMode: !this.state.previewMode})}}
