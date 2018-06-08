@@ -57,7 +57,7 @@ class FillInTheBlanksQuestionWidget extends React.Component {
   }
 
   render() {
-    const texts = this.state.question.variables.replace(/(\[).+?(\])/g, "[]");
+    const splitTexts = this.state.question.variables.split("\n");
 
     return(
         <ScrollView style={StyleSheet.absoluteFill}>
@@ -136,7 +136,42 @@ class FillInTheBlanksQuestionWidget extends React.Component {
                     <Text h5>{this.state.question.description}</Text>
                     <Text style={{alignSelf: 'flex-end', fontWeight: "bold"}}>{this.state.question.points} Pts</Text>
                     <View style={{paddingTop: 15}}>
-                        {renderFillInBlanks(this.state.question.variables)}
+                        {splitTexts.map((item, index) => {
+                            let first = false;
+                            let vars;
+                            let itemsBeforeBrackets = item.split('[').filter(item => (item.indexOf(']') < 0))[0];
+
+                            if (itemsBeforeBrackets === '') {
+                                vars = item.split(']')[1];
+                                first = true;
+                            } else {
+                                vars = itemsBeforeBrackets;
+                            }
+                            if (first) {
+                                return (
+                                    <View style={{paddingTop: 20, flex: 1, flexDirection: 'row'}}>
+                                        <TextInput style={{backgroundColor: 'white', width: 100,
+                                            borderColor: 'gray', borderWidth: 1}}/>
+                                        <Text key={index} h5>
+                                            {vars}
+                                        </Text>
+                                    </View>
+                                )
+                            } else {
+                                return (
+                                    <View style={{paddingTop: 20, flex: 1, flexDirection: 'row'}}>
+                                        <Text key={index} h5>
+                                            {vars}
+                                        </Text>
+
+                                        <TextInput style={{backgroundColor: 'white', width: 100,
+                                            borderColor: 'gray', borderWidth: 1}}/>
+                                    </View>
+                                )
+                            }
+                        })}
+
+
                     </View>
                 </ScrollView>
               }
@@ -151,37 +186,6 @@ class FillInTheBlanksQuestionWidget extends React.Component {
 }
 
 export default FillInTheBlanksQuestionWidget
-
-const renderFillInBlanks = variables => {
-    let vars = variables.split(/[[\]]{1,2}/);
-    vars.length--;
-
-    let blanksResult = [];
-    for (var i = 0; i < vars.length - 1; i += 2) {
-        blanksResult[i / 2] =
-            <View key={i / 2} style={{flexDirection: 'row', justifyContent: 'center'}}>
-                <Text h5
-                      className="match"
-                      key={i}>
-                    {vars[i]}
-                </Text>
-                <TextInput
-                    style={{
-                        fontSize: 15,
-                        flex: 1,
-                        borderColor: 'gray',
-                        borderWidth: 1,
-                        width: 50,
-                        height: 30,
-                        backgroundColor: "white",
-                    }}
-                    className="match" key={i + 1}/>
-            </View>
-    }
-    return (
-        blanksResult
-    );
-}
 
 const styles = StyleSheet.create({
    inputView: {
